@@ -1,0 +1,45 @@
+# =========================
+# Vivado Generated Files
+# =========================
+
+# Build directories
+*.cache/
+*.gen/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.tmp/
+*.Xil/
+
+
+# Custom Folders
+block_diagram_export/
+tcl/
+
+# Logs
+*.log
+*.jou
+*.str
+
+# Backup files
+*.backup
+*.bak
+
+# Temporary files
+*.tmp
+
+# Simulation outputs
+*.wdb
+*.vcd
+
+# Bitstream and reports (optional)
+*.bit
+*.bin
+*.ltx
+*.rpt
+
+# OS files
+.DS_Store
+Thumbs.db
+
