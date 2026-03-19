@@ -5,14 +5,14 @@
 -- Architecture: TAP (monitor) mode
 -- The parser sits alongside the existing switch->aes256gcm path.
 -- It receives a copy of the data stream from axis_switch_0, parses headers,
--- and signals the PS via IRQ with classification results (o_pkt_valid,
--- o_pkt_drop, o_protocol_class, o_error_code etc.).
+-- and signals the PS via IRQ with classification results.
 --
--- The original switch->aes256gcm connection is kept intact inside the BD,
--- avoiding any data-width conversion issues (AES expects 128-bit, switch
--- outputs 64-bit - the BD handles this internally as before).
---
--- Parser controls s_axis_tready back to axis_switch_0 for backpressure.
+-- Fix v3: BD now exports sw_tdata as 128-bit (axis_switch outputs 128-bit
+--         to match the AES core). The parser operates on 64-bit beats.
+--         We take the upper 64 bits [127:64] of each beat - this matches
+--         the network byte order since axis_switch drives TDATA with the
+--         first byte in the MSB position.
+--         sw_tkeep[15:8] is the corresponding keep for the upper half.
 -- =============================================================================
 
 library ieee;
@@ -49,7 +49,7 @@ architecture rtl of iot_gateway_top is
 
     -- -------------------------------------------------------------------------
     -- Block design wrapper component
-    -- Ports match exactly what patch_bd_for_parser_v2.tcl creates
+    -- sw_tdata/sw_tkeep are 128/16-bit - matching axis_switch 128-bit output
     -- -------------------------------------------------------------------------
     component iot_gateway_bd_wrapper is
         port (
@@ -74,9 +74,9 @@ architecture rtl of iot_gateway_top is
             FIXED_IO_ps_clk   : inout std_logic;
             FIXED_IO_ps_porb  : inout std_logic;
             FIXED_IO_ps_srstb : inout std_logic;
-            -- Tap: copy of axis_switch_0 output (BD drives these out)
-            sw_tdata          : out std_logic_vector(63 downto 0);
-            sw_tkeep          : out std_logic_vector(7  downto 0);
+            -- Tap: copy of axis_switch_0 output (128-bit from BD)
+            sw_tdata          : out std_logic_vector(127 downto 0);
+            sw_tkeep          : out std_logic_vector(15  downto 0);
             -- Parser drives tready back into the switch
             sw_tready         : in  std_logic;
             -- Clock and reset for parser
@@ -88,7 +88,7 @@ architecture rtl of iot_gateway_top is
     end component;
 
     -- -------------------------------------------------------------------------
-    -- Packet parser component
+    -- Packet parser component (64-bit AXI-Stream)
     -- -------------------------------------------------------------------------
     component packet_parser_top is
         generic (
@@ -136,21 +136,45 @@ architecture rtl of iot_gateway_top is
     signal w_fclk1       : std_logic;
     signal w_parser_rstn : std_logic;
 
-    -- Tap signals from axis_switch_0
-    signal w_sw_tdata    : std_logic_vector(63 downto 0);
-    signal w_sw_tkeep    : std_logic_vector(7  downto 0);
-    signal w_sw_tready   : std_logic;
+    -- Full 128-bit tap from BD axis_switch output
+    signal w_sw_tdata_128 : std_logic_vector(127 downto 0);
+    signal w_sw_tkeep_16  : std_logic_vector(15  downto 0);
+    signal w_sw_tready    : std_logic;
 
-    -- Parser master output (not connected to AES - monitored only)
-    signal w_m_tdata     : std_logic_vector(63 downto 0);
-    signal w_m_tkeep     : std_logic_vector(7  downto 0);
-    signal w_m_tvalid    : std_logic;
-    signal w_m_tlast     : std_logic;
+    -- ---------------------------------------------------------------------------
+    -- Width adaptation: 128-bit BD output -> 64-bit parser input
+    --
+    -- axis_switch drives TDATA[127:0] where byte 0 of the packet occupies
+    -- TDATA[127:120] (MSB-first / big-endian network order).
+    -- The parser FSM expects the same byte ordering on a 64-bit bus:
+    --   beat N maps to TDATA[63:0] with byte 0 at bits [63:56].
+    --
+    -- Strategy: present two 64-bit beats per 128-bit word using a simple
+    -- 1-bit sub-beat counter. On sub-beat 0 forward upper half [127:64];
+    -- on sub-beat 1 forward lower half [63:0]. tkeep is split likewise.
+    -- tready to BD is asserted only when both sub-beats have been consumed.
+    -- ---------------------------------------------------------------------------
+    signal r_sub_beat     : std_logic := '0';  -- 0 = upper half, 1 = lower half
+    signal r_tdata_lo     : std_logic_vector(63 downto 0);  -- latched lower half
+    signal r_tkeep_lo     : std_logic_vector(7  downto 0);
+
+    -- 64-bit signals to parser
+    signal w_par_tdata    : std_logic_vector(63 downto 0);
+    signal w_par_tkeep    : std_logic_vector(7  downto 0);
+    signal w_par_tvalid   : std_logic;
+    signal w_par_tlast    : std_logic;
+    signal w_par_tready   : std_logic;
+
+    -- Parser master output (monitor mode - not forwarded)
+    signal w_m_tdata      : std_logic_vector(63 downto 0);
+    signal w_m_tkeep      : std_logic_vector(7  downto 0);
+    signal w_m_tvalid     : std_logic;
+    signal w_m_tlast      : std_logic;
 
     -- Parser status
-    signal w_irq         : std_logic;
+    signal w_irq          : std_logic;
 
-    -- Unused status outputs (available for ILA probe if desired)
+    -- Unused parsed fields (available for ILA probing)
     signal w_eth_dst_mac     : std_logic_vector(47 downto 0);
     signal w_eth_src_mac     : std_logic_vector(47 downto 0);
     signal w_eth_type        : std_logic_vector(15 downto 0);
@@ -173,7 +197,7 @@ architecture rtl of iot_gateway_top is
 begin
 
     -- -------------------------------------------------------------------------
-    -- Block design
+    -- Block design instantiation
     -- -------------------------------------------------------------------------
     u_bd : iot_gateway_bd_wrapper
         port map (
@@ -198,8 +222,8 @@ begin
             FIXED_IO_ps_clk   => FIXED_IO_ps_clk,
             FIXED_IO_ps_porb  => FIXED_IO_ps_porb,
             FIXED_IO_ps_srstb => FIXED_IO_ps_srstb,
-            sw_tdata          => w_sw_tdata,
-            sw_tkeep          => w_sw_tkeep,
+            sw_tdata          => w_sw_tdata_128,
+            sw_tkeep          => w_sw_tkeep_16,
             sw_tready         => w_sw_tready,
             fclk1             => w_fclk1,
             parser_rst_n      => w_parser_rstn,
@@ -207,26 +231,67 @@ begin
         );
 
     -- -------------------------------------------------------------------------
-    -- Packet parser (tap/monitor mode)
-    -- Receives the same stream as aes256gcm_0.
-    -- Master output is dropped (m_axis_tready tied high).
-    -- PS is notified via IRQ when parse_done fires.
+    -- 128->64 bit width splitter
+    -- Presents two 64-bit sub-beats per 128-bit BD beat.
+    -- Sub-beat 0: upper half [127:64] (first in network order)
+    -- Sub-beat 1: lower half  [63:0]  (second in network order)
+    -- tready to BD only asserted when sub-beat 1 is consumed by parser.
+    -- -------------------------------------------------------------------------
+    p_split : process(w_fclk1, w_parser_rstn)
+    begin
+        if w_parser_rstn = '0' then
+            r_sub_beat  <= '0';
+            r_tdata_lo  <= (others => '0');
+            r_tkeep_lo  <= (others => '0');
+        elsif rising_edge(w_fclk1) then
+            if w_par_tvalid = '1' and w_par_tready = '1' then
+                if r_sub_beat = '0' then
+                    -- Upper half consumed - latch lower half, advance
+                    r_tdata_lo <= w_sw_tdata_128(63 downto 0);
+                    r_tkeep_lo <= w_sw_tkeep_16(7 downto 0);
+                    r_sub_beat <= '1';
+                else
+                    -- Lower half consumed - ready for next 128-bit word
+                    r_sub_beat <= '0';
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -- Combinational mux: select which half to present to parser
+    w_par_tdata  <= w_sw_tdata_128(127 downto 64) when r_sub_beat = '0'
+                    else r_tdata_lo;
+    w_par_tkeep  <= w_sw_tkeep_16(15 downto 8)    when r_sub_beat = '0'
+                    else r_tkeep_lo;
+    -- tvalid: always '1' on sub-beat 1 (data already latched);
+    --         on sub-beat 0 we need the BD to have valid data
+    w_par_tvalid <= '1'          when r_sub_beat = '1'
+                    else '1';    -- BD drives continuously; treat as always valid
+    -- tlast: only assert on sub-beat 1 of the final beat
+    w_par_tlast  <= '0'          when r_sub_beat = '0'
+                    else '0';    -- tlast not available from BD tap; tie low
+
+    -- tready back to BD: only when lower sub-beat is consumed
+    w_sw_tready  <= w_par_tready when r_sub_beat = '1' else '0';
+
+    -- -------------------------------------------------------------------------
+    -- Packet parser (TAP / monitor mode)
     -- -------------------------------------------------------------------------
     u_parser : packet_parser_top
         generic map (C_AXIS_DATA_WIDTH => 64)
         port map (
             clk               => w_fclk1,
             rst_n             => w_parser_rstn,
-            s_axis_tdata      => w_sw_tdata,
-            s_axis_tkeep      => w_sw_tkeep,
-            s_axis_tvalid     => '1',        -- switch has no tvalid pin; always valid
-            s_axis_tlast      => '0',        -- switch has no tlast pin
-            s_axis_tready     => w_sw_tready,
+            s_axis_tdata      => w_par_tdata,
+            s_axis_tkeep      => w_par_tkeep,
+            s_axis_tvalid     => w_par_tvalid,
+            s_axis_tlast      => w_par_tlast,
+            s_axis_tready     => w_par_tready,
             m_axis_tdata      => w_m_tdata,
             m_axis_tkeep      => w_m_tkeep,
             m_axis_tvalid     => w_m_tvalid,
             m_axis_tlast      => w_m_tlast,
-            m_axis_tready     => '1',        -- master output not used
+            m_axis_tready     => '1',
             o_eth_dst_mac     => w_eth_dst_mac,
             o_eth_src_mac     => w_eth_src_mac,
             o_eth_type        => w_eth_type,

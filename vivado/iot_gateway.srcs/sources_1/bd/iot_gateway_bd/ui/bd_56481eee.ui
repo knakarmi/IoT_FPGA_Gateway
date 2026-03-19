@@ -1,88 +1,93 @@
 {
    "ActiveEmotionalView":"Default View",
    "Default View_ScaleFactor":"0.992431",
-   "Default View_TopLeft":"-160,-121",
+   "Default View_TopLeft":"-160,-56",
    "ExpandedHierarchyInLayout":"",
-   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS-threadsafe
+   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 8 -x 2860 -y 70 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 8 -x 2860 -y 100 -defaultsOSRD
+preplace port DDR -pg 1 -lvl 8 -x 2870 -y 70 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 8 -x 2870 -y 100 -defaultsOSRD
 preplace port port-id_sw_tready -pg 1 -lvl 0 -x -10 -y 340 -defaultsOSRD
-preplace port port-id_fclk1 -pg 1 -lvl 8 -x 2860 -y 170 -defaultsOSRD
+preplace port port-id_fclk1 -pg 1 -lvl 8 -x 2870 -y 170 -defaultsOSRD
 preplace port port-id_parser_irq -pg 1 -lvl 0 -x -10 -y 310 -defaultsOSRD
-preplace portBus sw_tdata -pg 1 -lvl 8 -x 2860 -y 550 -defaultsOSRD
-preplace portBus sw_tkeep -pg 1 -lvl 8 -x 2860 -y 580 -defaultsOSRD
+preplace portBus sw_tdata -pg 1 -lvl 8 -x 2870 -y 550 -defaultsOSRD
+preplace portBus sw_tkeep -pg 1 -lvl 8 -x 2870 -y 580 -defaultsOSRD
 preplace portBus gcm_tdata -pg 1 -lvl 0 -x -10 -y 400 -defaultsOSRD
 preplace portBus gcm_tkeep -pg 1 -lvl 0 -x -10 -y 370 -defaultsOSRD
-preplace portBus parser_rst_n -pg 1 -lvl 8 -x 2860 -y 1090 -defaultsOSRD
-preplace inst aes256gcm_0 -pg 1 -lvl 2 -x 680 -y 740 -defaultsOSRD
+preplace portBus parser_rst_n -pg 1 -lvl 8 -x 2870 -y 1090 -defaultsOSRD
+preplace inst aes256gcm_0 -pg 1 -lvl 2 -x 690 -y 740 -defaultsOSRD
 preplace inst axi_dma_0 -pg 1 -lvl 5 -x 1830 -y 170 -defaultsOSRD
-preplace inst axis_data_fifo_0 -pg 1 -lvl 3 -x 1090 -y 650 -defaultsOSRD
-preplace inst axis_subset_converter_0 -pg 1 -lvl 4 -x 1450 -y 440 -defaultsOSRD
+preplace inst axis_data_fifo_0 -pg 1 -lvl 3 -x 1110 -y 650 -defaultsOSRD
+preplace inst axis_subset_converter_0 -pg 1 -lvl 4 -x 1460 -y 440 -defaultsOSRD
 preplace inst axis_switch_0 -pg 1 -lvl 6 -x 2220 -y 570 -defaultsOSRD
 preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 200 -y 490 -defaultsOSRD
-preplace inst proc_sys_reset_1 -pg 1 -lvl 2 -x 680 -y 1050 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 7 -x 2600 -y 130 -defaultsOSRD
+preplace inst proc_sys_reset_1 -pg 1 -lvl 2 -x 690 -y 1050 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 7 -x 2620 -y 130 -defaultsOSRD
 preplace inst smartconnect_0 -pg 1 -lvl 6 -x 2220 -y 110 -defaultsOSRD
-preplace inst smartconnect_1 -pg 1 -lvl 4 -x 1450 -y 630 -defaultsOSRD
+preplace inst smartconnect_1 -pg 1 -lvl 4 -x 1460 -y 630 -defaultsOSRD
 preplace inst xlconcat_irq -pg 1 -lvl 6 -x 2220 -y 400 -defaultsOSRD
 preplace inst xlconstant_0 -pg 1 -lvl 1 -x 200 -y 630 -defaultsOSRD
-preplace inst xlconstant_6 -pg 1 -lvl 1 -x 200 -y 930 -defaultsOSRD
-preplace inst xlconstant_7 -pg 1 -lvl 1 -x 200 -y 1030 -defaultsOSRD
-preplace inst xlconstant_dcm -pg 1 -lvl 1 -x 200 -y 1130 -defaultsOSRD
+preplace inst xlconstant_6 -pg 1 -lvl 1 -x 200 -y 1030 -defaultsOSRD
+preplace inst xlconstant_7 -pg 1 -lvl 1 -x 200 -y 1130 -defaultsOSRD
+preplace inst xlconstant_dcm -pg 1 -lvl 1 -x 200 -y 1230 -defaultsOSRD
 preplace inst xlconstant_one1 -pg 1 -lvl 6 -x 2220 -y 720 -defaultsOSRD
 preplace inst axi_gpio_ctrl -pg 1 -lvl 5 -x 1830 -y 490 -defaultsOSRD
 preplace inst axi_gpio_key_val -pg 1 -lvl 5 -x 1830 -y 840 -defaultsOSRD
 preplace inst axi_gpio_status -pg 1 -lvl 5 -x 1830 -y 680 -defaultsOSRD
-preplace inst xlconstant_key -pg 1 -lvl 1 -x 200 -y 830 -defaultsOSRD
-preplace inst xlconstant_iv -pg 1 -lvl 1 -x 200 -y 730 -defaultsOSRD
-preplace netloc Net 1 0 8 20 360 NJ 360 NJ 360 1250 350 1640 350 2050J 300 2360 280 2820
+preplace inst xlconstant_key -pg 1 -lvl 1 -x 200 -y 930 -defaultsOSRD
+preplace inst xlconstant_iv -pg 1 -lvl 1 -x 200 -y 830 -defaultsOSRD
+preplace inst axis_dwidth_conv_0 -pg 1 -lvl 3 -x 1110 -y 60 -defaultsOSRD
+preplace inst xlconstant_bval -pg 1 -lvl 1 -x 200 -y 730 -defaultsOSRD
+preplace netloc Net 1 0 8 10 380 NJ 380 NJ 380 1280 360 1640 -30 NJ -30 2400 260 2840
 preplace netloc aes256gcm_0_aes_gcm_data_out_bval_o 1 2 1 940 640n
 preplace netloc aes256gcm_0_aes_gcm_data_out_o 1 2 1 930 620n
-preplace netloc aes256gcm_0_aes_gcm_data_out_val_o 1 2 1 900 660n
+preplace netloc aes256gcm_0_aes_gcm_data_out_val_o 1 2 1 950 660n
 preplace netloc aes256gcm_0_aes_gcm_ghash_tag_o 1 2 1 NJ 780
-preplace netloc aes256gcm_0_aes_gcm_ready_o 1 2 4 920J 760 NJ 760 NJ 760 1990
-preplace netloc processing_system7_0_FCLK_CLK1 1 1 7 440 950 910 440 1260 360 1620 360 2040 220 2380 270 2840
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 8 30 380 410 330 NJ 330 NJ 330 NJ 330 2030J 310 NJ 310 2810
+preplace netloc aes256gcm_0_aes_gcm_ready_o 1 2 4 910J 760 NJ 760 NJ 760 1990
+preplace netloc aes_gcm_iv_i_0_1 1 1 1 380J 750n
+preplace netloc aes_gcm_key_word_i_0_1 1 1 1 370J 710n
+preplace netloc axi_dma_0_mm2s_introut 1 5 1 2050 250n
+preplace netloc axi_dma_0_s2mm_introut 1 5 1 2000 270n
+preplace netloc axi_gpio_ctrl_gpio_io_o 1 1 5 440 1150 NJ 1150 NJ 1150 NJ 1150 2000
+preplace netloc axi_gpio_key_val_gpio_io_o 1 1 5 460 950 NJ 950 NJ 950 NJ 950 1990
+preplace netloc axis_dwidth_conv_0_m_axis_tdata 1 1 3 450 330 NJ 330 1250
+preplace netloc axis_switch_0_m_axis_tdata 1 6 2 2410 550 N
+preplace netloc axis_switch_0_m_axis_tkeep 1 6 2 N 580 N
+preplace netloc gcm_tdata_1 1 0 2 10J 390n 390J
+preplace netloc gcm_tkeep_1 1 0 2 NJ 370n 430J
+preplace netloc parser_irq_1 1 0 6 NJ 310 NJ 310 NJ 310 NJ 310 1650J 350 1990J
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 4 N 530 NJ 530 1260 540 1660
 preplace netloc proc_sys_reset_0_peripheral_reset 1 1 1 420 490n
-preplace netloc proc_sys_reset_1_interconnect_aresetn 1 2 4 950 540 1260 540 1620J 570 2010
+preplace netloc proc_sys_reset_1_interconnect_aresetn 1 2 4 920 460 1270 530 1630J 570 2010
+preplace netloc proc_sys_reset_1_peripheral_aresetn 1 2 6 NJ 1090 NJ 1090 NJ 1090 NJ 1090 NJ 1090 NJ
+preplace netloc processing_system7_0_FCLK_CLK1 1 1 7 430 520 960 220 1270 220 1630 10 2030 210 2410 270 2850
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 8 20 390 410 320 NJ 320 1260J 330 NJ 330 1990J 310 NJ 310 2830
+preplace netloc sw_tready_1 1 0 7 NJ 340 NJ 340 NJ 340 NJ 340 NJ 340 2040J 320 2360
+preplace netloc xlconcat_irq_dout 1 6 1 2390 200n
 preplace netloc xlconstant_0_dout 1 1 1 NJ 630
 preplace netloc xlconstant_6_dout 1 1 1 400J 830n
-preplace netloc xlconstant_7_dout 1 1 1 380J 850n
-preplace netloc axi_gpio_ctrl_gpio_io_o 1 1 5 450 1150 NJ 1150 NJ 1150 NJ 1150 2000
-preplace netloc axi_gpio_key_val_gpio_io_o 1 1 5 460 1160 NJ 1160 NJ 1160 NJ 1160 1990
-preplace netloc aes_gcm_key_word_i_0_1 1 1 1 370J 710n
-preplace netloc aes_gcm_iv_i_0_1 1 1 1 380J 730n
-preplace netloc axi_dma_0_mm2s_introut 1 5 1 2060 250n
-preplace netloc axi_dma_0_s2mm_introut 1 5 1 2000 270n
-preplace netloc xlconcat_irq_dout 1 6 1 2370 200n
-preplace netloc xlconstant_one1_dout 1 6 1 N 720
-preplace netloc xlconstant_dcm_dout 1 1 1 410J 1090n
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 4 N 530 NJ 530 1240 530 1660
-preplace netloc axis_switch_0_m_axis_tdata 1 6 2 2370 550 N
-preplace netloc axis_switch_0_m_axis_tkeep 1 6 2 N 580 N
-preplace netloc sw_tready_1 1 0 7 NJ 340 NJ 340 NJ 340 NJ 340 NJ 340 2070J 320 2360
-preplace netloc gcm_tdata_1 1 0 2 10J 390 390J
-preplace netloc gcm_tkeep_1 1 0 2 NJ 370 430J
-preplace netloc proc_sys_reset_1_peripheral_aresetn 1 2 6 NJ 1090 NJ 1090 NJ 1090 NJ 1090 NJ 1090 NJ
-preplace netloc parser_irq_1 1 0 6 NJ 310 NJ 310 NJ 310 NJ 310 1630J 410 2000J
+preplace netloc xlconstant_7_dout 1 1 1 420J 850n
+preplace netloc xlconstant_bval_dout 1 1 1 390 730n
+preplace netloc xlconstant_dcm_dout 1 1 1 430J 1090n
+preplace netloc xlconstant_one1_dout 1 3 4 1250 0 N 0 N 0 2380
 preplace netloc axi_dma_0_M_AXIS_MM2S 1 5 1 2020 130n
 preplace netloc axi_dma_0_M_AXI_MM2S 1 5 1 N 90
 preplace netloc axi_dma_0_M_AXI_S2MM 1 5 1 N 110
 preplace netloc axi_dma_0_M_AXI_SG 1 5 1 N 70
-preplace netloc axis_data_fifo_0_M_AXIS 1 3 1 1230 420n
-preplace netloc axis_subset_converter_0_M_AXIS 1 4 1 1610 120n
+preplace netloc axis_data_fifo_0_M_AXIS 1 3 1 1250 420n
+preplace netloc axis_subset_converter_0_M_AXIS 1 4 1 1620 120n
+preplace netloc axis_switch_0_M00_AXIS 1 2 5 960 -20 NJ -20 NJ -20 NJ -20 2370
 preplace netloc processing_system7_0_DDR 1 7 1 NJ 70
-preplace netloc processing_system7_0_FIXED_IO 1 7 1 2840J 90n
-preplace netloc processing_system7_0_M_AXI_GP0 1 3 5 1270 10 NJ 10 2070J 260 NJ 260 2830
+preplace netloc processing_system7_0_FIXED_IO 1 7 1 2850J 90n
+preplace netloc processing_system7_0_M_AXI_GP0 1 3 5 1290 -10 NJ -10 NJ -10 NJ -10 2840
 preplace netloc smartconnect_0_M00_AXI 1 6 1 N 100
 preplace netloc smartconnect_0_M01_AXI 1 6 1 N 120
-preplace netloc smartconnect_1_M00_AXI 1 4 1 1600 100n
+preplace netloc smartconnect_1_M00_AXI 1 4 1 1610 100n
 preplace netloc smartconnect_1_M01_AXI 1 4 1 1650 470n
-preplace netloc smartconnect_1_M02_AXI 1 4 1 1610 640n
+preplace netloc smartconnect_1_M02_AXI 1 4 1 1620 640n
 preplace netloc smartconnect_1_M03_AXI 1 4 1 N 660
-levelinfo -pg 1 -10 200 680 1090 1450 1830 2220 2600 2860
-pagesize -pg 1 -db -bbox -sgen -160 0 3020 1190
+levelinfo -pg 1 -10 200 690 1110 1460 1830 2220 2620 2870
+pagesize -pg 1 -db -bbox -sgen -160 -40 3030 1290
 "
 }
 {

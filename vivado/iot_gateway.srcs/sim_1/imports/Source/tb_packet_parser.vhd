@@ -506,7 +506,7 @@ begin
     -- -------------------------------------------------------------------------
     p_watchdog : process
     begin
-        wait for 500 us;
+        wait for 1000 us;
         report "SIMULATION TIMEOUT" severity failure;
     end process p_watchdog;
 

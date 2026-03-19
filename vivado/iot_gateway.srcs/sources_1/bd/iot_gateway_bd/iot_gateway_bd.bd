@@ -31,7 +31,9 @@
       "axi_gpio_key_val": "",
       "axi_gpio_status": "",
       "xlconstant_key": "",
-      "xlconstant_iv": ""
+      "xlconstant_iv": "",
+      "axis_dwidth_conv_0": "",
+      "xlconstant_bval": ""
     },
     "interface_ports": {
       "DDR": {
@@ -1761,7 +1763,7 @@
             "value": "0x00000000"
           },
           "C_GPIO_WIDTH": {
-            "value": "5"
+            "value": "4"
           }
         }
       },
@@ -1806,6 +1808,34 @@
             "value": "96"
           }
         }
+      },
+      "axis_dwidth_conv_0": {
+        "vlnv": "xilinx.com:ip:axis_dwidth_converter:1.1",
+        "xci_name": "iot_gateway_bd_axis_dwidth_conv_0_1",
+        "xci_path": "ip\\iot_gateway_bd_axis_dwidth_conv_0_1\\iot_gateway_bd_axis_dwidth_conv_0_1.xci",
+        "inst_hier_path": "axis_dwidth_conv_0",
+        "parameters": {
+          "M_TDATA_NUM_BYTES": {
+            "value": "16"
+          },
+          "S_TDATA_NUM_BYTES": {
+            "value": "8"
+          }
+        }
+      },
+      "xlconstant_bval": {
+        "vlnv": "xilinx.com:ip:xlconstant:1.1",
+        "xci_name": "iot_gateway_bd_xlconstant_bval_0",
+        "xci_path": "ip\\iot_gateway_bd_xlconstant_bval_0\\iot_gateway_bd_xlconstant_bval_0.xci",
+        "inst_hier_path": "xlconstant_bval",
+        "parameters": {
+          "CONST_VAL": {
+            "value": "65535"
+          },
+          "CONST_WIDTH": {
+            "value": "16"
+          }
+        }
       }
     },
     "interface_nets": {
@@ -1843,6 +1873,12 @@
         "interface_ports": [
           "axi_dma_0/S_AXIS_S2MM",
           "axis_subset_converter_0/M_AXIS"
+        ]
+      },
+      "axis_switch_0_M00_AXIS": {
+        "interface_ports": [
+          "axis_switch_0/M00_AXIS",
+          "axis_dwidth_conv_0/S_AXIS"
         ]
       },
       "processing_system7_0_DDR": {
@@ -1983,6 +2019,12 @@
           "aes256gcm_0/aes_gcm_key_word_val_i"
         ]
       },
+      "axis_dwidth_conv_0_m_axis_tdata": {
+        "ports": [
+          "axis_dwidth_conv_0/m_axis_tdata",
+          "aes256gcm_0/aes_gcm_data_in_i"
+        ]
+      },
       "axis_switch_0_m_axis_tdata": {
         "ports": [
           "axis_switch_0/m_axis_tdata",
@@ -1997,14 +2039,12 @@
       },
       "gcm_tdata_1": {
         "ports": [
-          "gcm_tdata",
-          "aes256gcm_0/aes_gcm_data_in_i"
+          "gcm_tdata"
         ]
       },
       "gcm_tkeep_1": {
         "ports": [
-          "gcm_tkeep",
-          "aes256gcm_0/aes_gcm_data_in_bval_i"
+          "gcm_tkeep"
         ]
       },
       "parser_irq_1": {
@@ -2035,7 +2075,8 @@
           "axis_subset_converter_0/aresetn",
           "axis_switch_0/aresetn",
           "axis_data_fifo_0/s_axis_aresetn",
-          "smartconnect_0/aresetn"
+          "smartconnect_0/aresetn",
+          "axis_dwidth_conv_0/aresetn"
         ]
       },
       "proc_sys_reset_1_peripheral_aresetn": {
@@ -2058,7 +2099,8 @@
           "processing_system7_0/S_AXI_HP0_ACLK",
           "processing_system7_0/S_AXI_HP1_ACLK",
           "smartconnect_0/aclk",
-          "fclk1"
+          "fclk1",
+          "axis_dwidth_conv_0/aclk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -2098,6 +2140,12 @@
           "aes256gcm_0/aes_gcm_ghash_aad_i"
         ]
       },
+      "xlconstant_bval_dout": {
+        "ports": [
+          "xlconstant_bval/dout",
+          "aes256gcm_0/aes_gcm_data_in_bval_i"
+        ]
+      },
       "xlconstant_dcm_dout": {
         "ports": [
           "xlconstant_dcm/dout",
@@ -2106,7 +2154,8 @@
       },
       "xlconstant_one1_dout": {
         "ports": [
-          "xlconstant_one1/dout"
+          "xlconstant_one1/dout",
+          "axis_dwidth_conv_0/m_axis_tready"
         ]
       }
     },
