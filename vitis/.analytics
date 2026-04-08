@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 timestamp=[2026-04-05 19:05:18], mode=WORKBENCH_START, duration=0:00:05.347, duration_ms=5347, data={}
 timestamp=[2026-04-05 19:05:18], mode=WORKBENCH_UI_INIT, duration=0:00:00.460, duration_ms=460, data={editors_count=0, platform_editors_count=0, projects_count=0, platform_projects_count=0, active_platform_editor=false, projects=}
 timestamp=[2026-04-05 19:05:19], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.216, duration_ms=216, data={}
@@ -141,3 +142,20 @@ timestamp=[2026-04-07 20:50:29], mode=PLATFORM_GENERATION, duration=0:00:08.637,
 timestamp=[2026-04-07 20:51:02], mode=PLATFORM_GENERATION, duration=0:00:25.582, duration_ms=25582, data={name=iot_gateway_platform}
 timestamp=[2026-04-07 20:51:08], mode=BUILD, duration=0:00:03.909, duration_ms=3909, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
 timestamp=[2026-04-07 20:51:19], mode=BUILD, duration=0:00:10.818, duration_ms=10818, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+=======
+timestamp=[2026-03-20 21:50:19], mode=WORKBENCH_START, duration=0:00:06.234, duration_ms=6234, data={}
+timestamp=[2026-03-20 21:50:19], mode=WORKBENCH_UI_INIT, duration=0:00:00.671, duration_ms=671, data={editors_count=0, platform_editors_count=0, projects_count=0, platform_projects_count=0, active_platform_editor=false, projects=}
+timestamp=[2026-03-20 21:50:20], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.303, duration_ms=303, data={}
+timestamp=[2026-03-23 20:28:28], mode=WORKBENCH_START, duration=0:00:07.289, duration_ms=7289, data={}
+timestamp=[2026-03-23 20:28:29], mode=WORKBENCH_UI_INIT, duration=0:00:00.927, duration_ms=927, data={editors_count=0, platform_editors_count=0, projects_count=1, platform_projects_count=0, active_platform_editor=false, projects=RemoteSystemsTempFiles}
+timestamp=[2026-03-23 20:28:30], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.276, duration_ms=276, data={}
+timestamp=[2026-03-23 20:30:53], mode=PLATFORM_CREATION, duration=0:00:19.709, duration_ms=19709, data={platform_source=dsa, os=standalone, processor=ps7_cortexa9, platform=null}
+timestamp=[2026-03-23 20:34:08], mode=PLATFORM_GENERATION, duration=0:00:22.004, duration_ms=22004, data={name=iot_gateway_platform}
+timestamp=[2026-03-23 20:37:37], mode=APP_CREATION, duration=0:00:09.716, duration_ms=9716, data={name=iot_gateway_app, project_type=sdk, os=standalone, processor=cortex-a9, runtime=C/C++, platform=iot_gateway_platform, application_type=application}
+timestamp=[2026-03-23 21:24:22], mode=BUILD, duration=0:00:00.689, duration_ms=689, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-03-23 21:33:28], mode=BUILD, duration=0:00:01.263, duration_ms=1263, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-03-23 21:36:33], mode=BUILD, duration=0:00:00.601, duration_ms=601, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-03-23 21:37:22], mode=BUILD, duration=0:00:00.582, duration_ms=582, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-03-23 21:37:32], mode=BUILD, duration=0:00:00.593, duration_ms=593, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-03-23 21:38:55], mode=BUILD, duration=0:00:02.034, duration_ms=2034, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c

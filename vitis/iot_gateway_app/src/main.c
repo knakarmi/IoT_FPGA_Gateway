@@ -129,6 +129,7 @@ int main(void)
     xil_printf("    OK - Key and IV loaded\r\n");
 
     /* ------------------------------------------------------------------
+<<<<<<< HEAD
      * 3b. Wait for AES core to assert ready after key load
      *     The core needs several clock cycles to expand the key schedule.
      *     Poll ready_o via STATUS GPIO with a timeout.
@@ -155,6 +156,8 @@ int main(void)
     }
 
     /* ------------------------------------------------------------------
+=======
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
      * 4. Run NIST test vector verification
      * ------------------------------------------------------------------ */
     xil_printf("[4] Running packet transfer test...\r\n");
@@ -165,6 +168,7 @@ int main(void)
     }
     xil_printf("    OK - Packet test passed\r\n");
 
+<<<<<<< HEAD
     // Temp Changes
     static const u8 TEST_PACKET2[64] = {0}; /* all zeros */
     static const u8 TEST_PACKET3[64] = {0x1}; /* all 1 */
@@ -173,6 +177,8 @@ int main(void)
     xil_printf("[4b] Running Temporary packet transfer test again... TEST_PACKET2[64] = {0}...\r\n");
     status = run_packet_test(TEST_PACKET2, sizeof(TEST_PACKET2));
 
+=======
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     /* ------------------------------------------------------------------
      * 5. Main processing loop
      * ------------------------------------------------------------------ */
@@ -180,6 +186,7 @@ int main(void)
     xil_printf("    Waiting for DMA transfers and parser IRQs\r\n");
     xil_printf("========================================\r\n");
 
+<<<<<<< HEAD
     {
         /* Use a simple volatile counter for the status print delay.
          * usleep() on standalone BSP can hang if the private timer
@@ -194,6 +201,13 @@ int main(void)
                 print_status();
             }
         }
+=======
+    while (1) {
+        /* Processing is interrupt-driven.
+         * Main loop just prints periodic status. */
+        usleep(1000000);  /* 1 second */
+        print_status();
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     }
 
     return XST_SUCCESS;

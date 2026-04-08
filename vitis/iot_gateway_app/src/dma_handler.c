@@ -4,8 +4,13 @@
  * Purpose: AXI DMA scatter-gather initialization and transfer management
  *
  * The AXI DMA is configured in scatter-gather mode:
+<<<<<<< HEAD
  *   MM2S (Memory-to-Stream): reads plaintext from DDR3 -> sends to AES core
  *   S2MM (Stream-to-Memory): receives ciphertext from AES core -> writes DDR3
+=======
+ *   MM2S (Memory-to-Stream): reads plaintext from DDR3 → sends to AES core
+ *   S2MM (Stream-to-Memory): receives ciphertext from AES core → writes DDR3
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
  *
  * Buffer descriptor rings are allocated in DDR3.
  * Interrupts fire when transfer completes (mm2s_introut, s2mm_introut).
@@ -21,6 +26,7 @@
 /* ---------------------------------------------------------------------------
  * DMA instance
  * --------------------------------------------------------------------------- */
+<<<<<<< HEAD
 XAxiDma dma_inst;
 
 /* ---------------------------------------------------------------------------
@@ -28,6 +34,15 @@ XAxiDma dma_inst;
  * --------------------------------------------------------------------------- */
 static u8 tx_buf[DMA_MAX_PKT_LEN] __attribute__((aligned(CACHE_LINE_SIZE)));
        u8 rx_buf[DMA_MAX_PKT_LEN] __attribute__((aligned(CACHE_LINE_SIZE)));
+=======
+static XAxiDma dma_inst;
+
+/* ---------------------------------------------------------------------------
+ * TX/RX buffers — aligned to cache line boundary
+ * --------------------------------------------------------------------------- */
+static u8 tx_buf[DMA_MAX_PKT_LEN] __attribute__((aligned(CACHE_LINE_SIZE)));
+static u8 rx_buf[DMA_MAX_PKT_LEN] __attribute__((aligned(CACHE_LINE_SIZE)));
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
 
 /* ---------------------------------------------------------------------------
  * Buffer descriptor storage
@@ -62,6 +77,10 @@ int dma_init(void)
     XAxiDma_BdRing *tx_ring, *rx_ring;
     XAxiDma_Bd bd_template;
     XAxiDma_Bd *bd_ptr;
+<<<<<<< HEAD
+=======
+    int bd_count;
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
 
     /* Look up hardware configuration */
     cfg = XAxiDma_LookupConfig(XPAR_AXI_DMA_0_DEVICE_ID);
@@ -193,10 +212,13 @@ int dma_init(void)
 
     xil_printf("DMA: TX ring %d BDs, RX ring %d BDs ready\r\n",
                DMA_BD_COUNT, DMA_BD_COUNT);
+<<<<<<< HEAD
     xil_printf("DMA: Base=0x%08X  MM2S_IRQ=%d  S2MM_IRQ=%d\r\n",
                (unsigned int)cfg->BaseAddr,
                XPAR_FABRIC_AXI_DMA_0_MM2S_INTROUT_INTR,
                XPAR_FABRIC_AXI_DMA_0_S2MM_INTROUT_INTR);
+=======
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
 
     return XST_SUCCESS;
 }
@@ -257,6 +279,7 @@ int dma_send_packet(u8 *buf, u32 len)
 }
 
 /* ---------------------------------------------------------------------------
+<<<<<<< HEAD
  * dma_scan_rx_len
  * When BD ActualLength is unreliable (SG BD not retired), scan rx_buf
  * from the end to find the last non-zero byte written by the DMA.
@@ -276,6 +299,8 @@ static u32 dma_scan_rx_len(u32 expected_max)
 }
 
 /* ---------------------------------------------------------------------------
+=======
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
  * dma_recv_packet
  * Read received packet from RX buffer after S2MM transfer completes
  * --------------------------------------------------------------------------- */
@@ -288,6 +313,7 @@ int dma_recv_packet(u8 *buf, u32 *len)
     /* Invalidate cache before reading DMA-written data */
     Xil_DCacheInvalidateRange((UINTPTR)rx_buf, DMA_MAX_PKT_LEN);
 
+<<<<<<< HEAD
     /* If BD-reported length is 0 (SG BD not retired in time),
      * scan the buffer directly for actual written content */
     if (g_rx_len == 0) {
@@ -310,6 +336,10 @@ int dma_recv_packet(u8 *buf, u32 *len)
 
     /* Zero rx_buf for next transfer (so scan works correctly next time) */
     memset(rx_buf, 0, DMA_MAX_PKT_LEN);
+=======
+    *len = g_rx_len;
+    memcpy(buf, rx_buf, *len);
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
 
     g_dma_rx_done = 0;
     s_rx_count++;
@@ -318,6 +348,7 @@ int dma_recv_packet(u8 *buf, u32 *len)
 }
 
 /* ---------------------------------------------------------------------------
+<<<<<<< HEAD
  * dma_poll_rx
  * Polling fallback for S2MM completion - reads SR register directly.
  * Use when interrupts are suspect. Returns XST_SUCCESS when S2MM IOC fires.
@@ -460,6 +491,10 @@ int dma_rearm_rx(void)
 
 /* ---------------------------------------------------------------------------
  * TX interrupt service routine - called when MM2S transfer completes
+=======
+ * dma_mm2s_isr
+ * TX interrupt service routine — called when MM2S transfer completes
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
  * --------------------------------------------------------------------------- */
 void dma_mm2s_isr(void *callback)
 {
@@ -492,7 +527,11 @@ void dma_mm2s_isr(void *callback)
 
 /* ---------------------------------------------------------------------------
  * dma_s2mm_isr
+<<<<<<< HEAD
  * RX interrupt service routine - called when S2MM transfer completes
+=======
+ * RX interrupt service routine — called when S2MM transfer completes
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
  * --------------------------------------------------------------------------- */
 void dma_s2mm_isr(void *callback)
 {

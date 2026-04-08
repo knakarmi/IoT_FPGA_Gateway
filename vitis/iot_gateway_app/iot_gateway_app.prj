@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="ASCII"?>
+<<<<<<< HEAD
 <sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="iot_gateway_app" location="C:/URI/ELE598/iot_gateway_project/vitis/iot_gateway_app" platform="C:/URI/ELE598/iot_gateway_project/vitis/iot_gateway_platform/export/iot_gateway_platform/iot_gateway_platform.xpfm" platformUID="xilinx:zc706::0.0(custom)" systemProject="iot_gateway_app_system" sysConfig="iot_gateway_platform" runtime="C/C++" cpu="standalone_domain" cpuInstance="ps7_cortexa9_0" os="standalone" mssSignature="c292ec55bf499b7e712a19c7a62f9976">
   <configuration name="Debug" id="xilinx.gnu.armv7.exe.debug.1369428529" dirty="true">
     <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
     <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
   </configuration>
   <configuration name="Release" id="xilinx.gnu.armv7.exe.release.1569730303" dirty="true">
+=======
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="iot_gateway_app" location="C:/URI/ELE598/iot_gateway_project/vitis/iot_gateway_app" platform="C:/URI/ELE598/iot_gateway_project/vitis/iot_gateway_platform/export/iot_gateway_platform/iot_gateway_platform.xpfm" platformUID="xilinx:zc706::0.0(custom)" systemProject="iot_gateway_app_system" sysConfig="iot_gateway_platform" runtime="C/C++" cpu="standalone_domain" cpuInstance="ps7_cortexa9_0" os="standalone" mssSignature="97a6f25c67313e28b06221180c62a05b">
+  <configuration name="Debug" id="xilinx.gnu.armv7.exe.debug.2065806898">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.armv7.exe.release.429522290" dirty="true">
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
   </configuration>
   <template appTemplateName="empty_application"/>

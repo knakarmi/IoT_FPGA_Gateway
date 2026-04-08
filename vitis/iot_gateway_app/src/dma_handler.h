@@ -1,7 +1,11 @@
 /* =============================================================================
  * IoT Gateway - Week 7
  * File   : dma_handler.h
+<<<<<<< HEAD
  * Fix v2 : Export dma_inst so interrupt_handler can pass it as callback
+=======
+ * Purpose: AXI DMA scatter-gather initialization and transfer management
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
  * =============================================================================
  */
 #ifndef DMA_HANDLER_H
@@ -11,26 +15,42 @@
 #include "xparameters.h"
 #include "xil_types.h"
 
+<<<<<<< HEAD
 #define DMA_MAX_PKT_LEN     2048
 #define DMA_BD_COUNT        16
 #define DMA_COALESCE_COUNT  1
+=======
+/* DMA buffer sizes */
+#define DMA_MAX_PKT_LEN     2048    /* max packet size in bytes */
+#define DMA_BD_COUNT        16      /* number of buffer descriptors */
+#define DMA_COALESCE_COUNT  1       /* interrupt after every transfer */
+
+/* Aligned buffer declarations (must be cache-line aligned for DMA) */
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
 #define CACHE_LINE_SIZE     32
 
 int  dma_init(void);
 int  dma_send_packet(u8 *buf, u32 len);
 int  dma_recv_packet(u8 *buf, u32 *len);
+<<<<<<< HEAD
 int  dma_rearm_rx(void);
 int  dma_poll_rx(u32 timeout_us);
+=======
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
 void dma_mm2s_isr(void *callback);
 void dma_s2mm_isr(void *callback);
 void print_status(void);
 
+<<<<<<< HEAD
 /* Exported so interrupt_handler can pass as callback pointer */
 extern XAxiDma dma_inst;
 
 /* Exported so packet_test can inspect raw ciphertext bytes directly */
 extern u8 rx_buf[DMA_MAX_PKT_LEN];
 
+=======
+/* Status flags set by ISR */
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
 extern volatile int g_dma_tx_done;
 extern volatile int g_dma_rx_done;
 extern volatile int g_dma_error;

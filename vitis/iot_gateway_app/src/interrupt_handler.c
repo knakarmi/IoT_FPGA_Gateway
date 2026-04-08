@@ -1,8 +1,12 @@
 /* =============================================================================
  * IoT Gateway - Week 7
  * File   : interrupt_handler.c
+<<<<<<< HEAD
  * Fix v2 : Pass &dma_inst as callback instead of NULL
  *          This fixes the Data Abort crash in dma_mm2s_isr/dma_s2mm_isr
+=======
+ * Purpose: GIC setup for DMA MM2S and S2MM interrupts
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
  * =============================================================================
  */
 
@@ -38,10 +42,17 @@ int interrupt_init(void)
         return status;
     }
 
+<<<<<<< HEAD
     /* Connect DMA MM2S interrupt — pass &dma_inst as callback */
     status = XScuGic_Connect(&gic_inst, DMA_MM2S_IRQ_ID,
                               (Xil_InterruptHandler)dma_mm2s_isr,
                               (void *)&dma_inst);
+=======
+    /* Connect DMA MM2S interrupt */
+    status = XScuGic_Connect(&gic_inst, DMA_MM2S_IRQ_ID,
+                              (Xil_InterruptHandler)dma_mm2s_isr,
+                              (void *)NULL);
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     if (status != XST_SUCCESS) {
         xil_printf("GIC: MM2S connect failed %d\r\n", status);
         return status;
@@ -50,10 +61,17 @@ int interrupt_init(void)
                                     DMA_IRQ_PRIORITY, IRQ_TRIGGER_RISING);
     XScuGic_Enable(&gic_inst, DMA_MM2S_IRQ_ID);
 
+<<<<<<< HEAD
     /* Connect DMA S2MM interrupt — pass &dma_inst as callback */
     status = XScuGic_Connect(&gic_inst, DMA_S2MM_IRQ_ID,
                               (Xil_InterruptHandler)dma_s2mm_isr,
                               (void *)&dma_inst);
+=======
+    /* Connect DMA S2MM interrupt */
+    status = XScuGic_Connect(&gic_inst, DMA_S2MM_IRQ_ID,
+                              (Xil_InterruptHandler)dma_s2mm_isr,
+                              (void *)NULL);
+>>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     if (status != XST_SUCCESS) {
         xil_printf("GIC: S2MM connect failed %d\r\n", status);
         return status;
