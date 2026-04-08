@@ -103,3 +103,5 @@ solution*/
 !*.tcl
 !*.bsp
 !Makefile
+**/.lock
+vitis/.metadata/
