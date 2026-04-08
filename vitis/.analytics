@@ -1,0 +1,143 @@
+timestamp=[2026-04-05 19:05:18], mode=WORKBENCH_START, duration=0:00:05.347, duration_ms=5347, data={}
+timestamp=[2026-04-05 19:05:18], mode=WORKBENCH_UI_INIT, duration=0:00:00.460, duration_ms=460, data={editors_count=0, platform_editors_count=0, projects_count=0, platform_projects_count=0, active_platform_editor=false, projects=}
+timestamp=[2026-04-05 19:05:19], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.216, duration_ms=216, data={}
+timestamp=[2026-04-05 19:09:06], mode=PLATFORM_CREATION, duration=0:00:17.361, duration_ms=17361, data={platform_source=dsa, os=standalone, processor=ps7_cortexa9, platform=null}
+timestamp=[2026-04-05 19:09:36], mode=PLATFORM_GENERATION, duration=0:00:18.468, duration_ms=18468, data={name=iot_getway_platform}
+timestamp=[2026-04-05 19:10:54], mode=APP_CREATION, duration=0:00:08.986, duration_ms=8986, data={name=iot_gateway_app, project_type=sdk, os=standalone, processor=cortex-a9, runtime=C/C++, platform=iot_getway_platform, application_type=application}
+timestamp=[2026-04-05 19:11:43], mode=BUILD, duration=0:00:02.652, duration_ms=2652, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 20:33:53], mode=BUILD, duration=0:00:00.454, duration_ms=454, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 20:34:01], mode=BUILD, duration=0:00:08.245, duration_ms=8245, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 20:39:25], mode=PLATFORM_GENERATION, duration=0:00:06.800, duration_ms=6800, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:39:25], mode=BUILD, duration=0:00:00.293, duration_ms=293, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:39:26], mode=BUILD, duration=0:00:00.196, duration_ms=196, data={name=iot_gateway_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:41:13], mode=PLATFORM_GENERATION, duration=0:00:16.492, duration_ms=16492, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:41:16], mode=BUILD, duration=0:00:02.817, duration_ms=2817, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 20:41:24], mode=BUILD, duration=0:00:07.118, duration_ms=7118, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 20:53:37], mode=PLATFORM_GENERATION, duration=0:00:06.564, duration_ms=6564, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:53:38], mode=BUILD, duration=0:00:00.204, duration_ms=204, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:53:38], mode=BUILD, duration=0:00:00.197, duration_ms=197, data={name=iot_gateway_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:53:59], mode=PLATFORM_GENERATION, duration=0:00:16.202, duration_ms=16202, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:54:00], mode=BUILD, duration=0:00:01.031, duration_ms=1031, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 20:55:07], mode=PLATFORM_GENERATION, duration=0:00:06.848, duration_ms=6848, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:55:08], mode=BUILD, duration=0:00:00.225, duration_ms=225, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:55:08], mode=BUILD, duration=0:00:00.209, duration_ms=209, data={name=iot_gateway_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:55:54], mode=PLATFORM_GENERATION, duration=0:00:16.291, duration_ms=16291, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:55:55], mode=BUILD, duration=0:00:00.941, duration_ms=941, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 20:57:19], mode=PLATFORM_GENERATION, duration=0:00:06.596, duration_ms=6596, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:57:20], mode=BUILD, duration=0:00:00.196, duration_ms=196, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:57:20], mode=BUILD, duration=0:00:00.208, duration_ms=208, data={name=iot_gateway_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:58:02], mode=PLATFORM_GENERATION, duration=0:00:15.911, duration_ms=15911, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:58:04], mode=BUILD, duration=0:00:01.694, duration_ms=1694, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 20:59:05], mode=PLATFORM_GENERATION, duration=0:00:06.585, duration_ms=6585, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:59:05], mode=BUILD, duration=0:00:00.188, duration_ms=188, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:59:05], mode=BUILD, duration=0:00:00.212, duration_ms=212, data={name=iot_gateway_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 20:59:25], mode=PLATFORM_GENERATION, duration=0:00:15.802, duration_ms=15802, data={name=iot_getway_platform}
+timestamp=[2026-04-05 20:59:27], mode=BUILD, duration=0:00:02.277, duration_ms=2277, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 20:59:35], mode=BUILD, duration=0:00:07.019, duration_ms=7019, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 21:01:52], mode=PLATFORM_GENERATION, duration=0:00:06.567, duration_ms=6567, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:01:55], mode=PLATFORM_GENERATION, duration=0:00:02.295, duration_ms=2295, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:02:16], mode=PLATFORM_GENERATION, duration=0:00:15.744, duration_ms=15744, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:02:18], mode=BUILD, duration=0:00:02.509, duration_ms=2509, data={name=iot_gateway_app, configuration=Release, clean_build=false}
+timestamp=[2026-04-05 21:02:26], mode=BUILD, duration=0:00:06.998, duration_ms=6998, data={name=iot_gateway_app_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-05 21:06:23], mode=BUILD, duration=0:00:00.458, duration_ms=458, data={name=iot_gateway_app, configuration=Release, clean_build=false}
+timestamp=[2026-04-05 21:06:24], mode=BUILD, duration=0:00:00.184, duration_ms=184, data={name=iot_gateway_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 21:06:31], mode=BUILD, duration=0:00:07.144, duration_ms=7144, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 21:07:21], mode=PLATFORM_GENERATION, duration=0:00:06.667, duration_ms=6667, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:07:21], mode=BUILD, duration=0:00:00.240, duration_ms=240, data={name=iot_gateway_app, configuration=Release, clean_build=true}
+timestamp=[2026-04-05 21:07:21], mode=BUILD, duration=0:00:00.197, duration_ms=197, data={name=iot_gateway_app_system, configuration=Release, clean_build=true}
+timestamp=[2026-04-05 21:07:48], mode=PLATFORM_GENERATION, duration=0:00:16.052, duration_ms=16052, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:07:51], mode=BUILD, duration=0:00:02.254, duration_ms=2254, data={name=iot_gateway_app, configuration=Release, clean_build=false}
+timestamp=[2026-04-05 21:07:58], mode=BUILD, duration=0:00:06.982, duration_ms=6982, data={name=iot_gateway_app_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-05 21:12:38], mode=PLATFORM_GENERATION, duration=0:00:06.709, duration_ms=6709, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:12:38], mode=BUILD, duration=0:00:00.221, duration_ms=221, data={name=iot_gateway_app, configuration=Release, clean_build=true}
+timestamp=[2026-04-05 21:12:38], mode=BUILD, duration=0:00:00.200, duration_ms=200, data={name=iot_gateway_app_system, configuration=Release, clean_build=true}
+timestamp=[2026-04-05 21:13:10], mode=PLATFORM_GENERATION, duration=0:00:16.099, duration_ms=16099, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:13:12], mode=BUILD, duration=0:00:02.335, duration_ms=2335, data={name=iot_gateway_app, configuration=Release, clean_build=false}
+timestamp=[2026-04-05 21:13:19], mode=BUILD, duration=0:00:07.019, duration_ms=7019, data={name=iot_gateway_app_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-05 21:17:02], mode=PLATFORM_GENERATION, duration=0:00:06.693, duration_ms=6693, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:17:02], mode=BUILD, duration=0:00:00.203, duration_ms=203, data={name=iot_gateway_app, configuration=Release, clean_build=true}
+timestamp=[2026-04-05 21:17:02], mode=BUILD, duration=0:00:00.215, duration_ms=215, data={name=iot_gateway_app_system, configuration=Release, clean_build=true}
+timestamp=[2026-04-05 21:17:23], mode=PLATFORM_GENERATION, duration=0:00:16.400, duration_ms=16400, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:17:26], mode=BUILD, duration=0:00:02.823, duration_ms=2823, data={name=iot_gateway_app, configuration=Release, clean_build=false}
+timestamp=[2026-04-05 21:17:33], mode=BUILD, duration=0:00:07.214, duration_ms=7214, data={name=iot_gateway_app_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-05 21:22:05], mode=APP_CREATION, duration=0:00:09.534, duration_ms=9534, data={name=iot_gateway_app, project_type=sdk, os=standalone, processor=cortex-a9, runtime=C/C++, platform=iot_getway_platform, application_type=application}
+timestamp=[2026-04-05 21:23:16], mode=PLATFORM_GENERATION, duration=0:00:07.042, duration_ms=7042, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:23:53], mode=PLATFORM_GENERATION, duration=0:00:17.069, duration_ms=17069, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:23:56], mode=BUILD, duration=0:00:02.800, duration_ms=2800, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 21:24:04], mode=BUILD, duration=0:00:07.363, duration_ms=7363, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 21:56:31], mode=PLATFORM_GENERATION, duration=0:00:06.527, duration_ms=6527, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:56:31], mode=BUILD, duration=0:00:00.207, duration_ms=207, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 21:56:32], mode=BUILD, duration=0:00:00.203, duration_ms=203, data={name=iot_gateway_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-05 21:57:15], mode=PLATFORM_GENERATION, duration=0:00:15.672, duration_ms=15672, data={name=iot_getway_platform}
+timestamp=[2026-04-05 21:57:18], mode=BUILD, duration=0:00:02.370, duration_ms=2370, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 21:57:25], mode=BUILD, duration=0:00:07.041, duration_ms=7041, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-05 22:03:38], mode=PLATFORM_GENERATION, duration=0:00:10.042, duration_ms=10042, data={name=iot_getway_platform}
+timestamp=[2026-04-05 22:07:43], mode=WORKBENCH_START, duration=0:00:08.545, duration_ms=8545, data={}
+timestamp=[2026-04-05 22:07:44], mode=WORKBENCH_UI_INIT, duration=0:00:01.032, duration_ms=1032, data={editors_count=6, platform_editors_count=2, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,iot_gateway_app,iot_gateway_app_system,iot_getway_platform}
+timestamp=[2026-04-05 22:07:44], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.093, duration_ms=93, data={}
+timestamp=[2026-04-06 19:54:40], mode=PLATFORM_GENERATION, duration=0:00:13.614, duration_ms=13614, data={name=iot_getway_platform}
+timestamp=[2026-04-06 19:55:16], mode=PLATFORM_GENERATION, duration=0:00:35.608, duration_ms=35608, data={name=iot_getway_platform}
+timestamp=[2026-04-06 19:55:23], mode=PLATFORM_GENERATION, duration=0:00:07.300, duration_ms=7300, data={name=iot_getway_platform}
+timestamp=[2026-04-06 19:55:24], mode=BUILD, duration=0:00:00.300, duration_ms=300, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-06 19:55:24], mode=BUILD, duration=0:00:00.207, duration_ms=207, data={name=iot_gateway_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-06 19:55:27], mode=PLATFORM_GENERATION, duration=0:00:02.433, duration_ms=2433, data={name=iot_getway_platform}
+timestamp=[2026-04-06 19:55:27], mode=BUILD, duration=0:00:00.243, duration_ms=243, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-06 19:55:43], mode=PLATFORM_GENERATION, duration=0:00:16.241, duration_ms=16241, data={name=iot_getway_platform}
+timestamp=[2026-04-06 19:55:52], mode=BUILD, duration=0:00:03.058, duration_ms=3058, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-06 19:56:12], mode=BUILD, duration=0:00:08.548, duration_ms=8548, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-06 19:58:03], mode=PLATFORM_GENERATION, duration=0:00:06.934, duration_ms=6934, data={name=iot_getway_platform}
+timestamp=[2026-04-06 19:58:45], mode=PLATFORM_GENERATION, duration=0:00:31.100, duration_ms=31100, data={name=iot_getway_platform}
+timestamp=[2026-04-06 19:59:09], mode=PLATFORM_GENERATION, duration=0:00:06.387, duration_ms=6387, data={name=iot_getway_platform}
+timestamp=[2026-04-06 19:59:09], mode=BUILD, duration=0:00:00.208, duration_ms=208, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-06 19:59:28], mode=PLATFORM_GENERATION, duration=0:00:15.639, duration_ms=15639, data={name=iot_getway_platform}
+timestamp=[2026-04-06 19:59:31], mode=BUILD, duration=0:00:02.515, duration_ms=2515, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-06 20:00:38], mode=BUILD, duration=0:00:00.456, duration_ms=456, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-06 20:00:46], mode=BUILD, duration=0:00:07.017, duration_ms=7017, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-06 20:09:36], mode=BUILD, duration=0:00:00.265, duration_ms=265, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-06 20:09:42], mode=BUILD, duration=0:00:02.180, duration_ms=2180, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-06 20:09:49], mode=BUILD, duration=0:00:07.145, duration_ms=7145, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-06 20:16:34], mode=BUILD, duration=0:00:01.164, duration_ms=1164, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-06 20:16:41], mode=BUILD, duration=0:00:06.996, duration_ms=6996, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 10:41:31], mode=WORKBENCH_START, duration=0:00:10.393, duration_ms=10393, data={}
+timestamp=[2026-04-07 10:41:32], mode=WORKBENCH_UI_INIT, duration=0:00:01.309, duration_ms=1309, data={editors_count=6, platform_editors_count=2, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,iot_gateway_app,iot_gateway_app_system,iot_getway_platform}
+timestamp=[2026-04-07 10:41:33], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.218, duration_ms=218, data={}
+timestamp=[2026-04-07 10:42:50], mode=PLATFORM_GENERATION, duration=0:00:37.361, duration_ms=37361, data={name=iot_getway_platform}
+timestamp=[2026-04-07 10:43:02], mode=BUILD, duration=0:00:02.766, duration_ms=2766, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 10:43:18], mode=BUILD, duration=0:00:08.120, duration_ms=8120, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 10:44:31], mode=PLATFORM_GENERATION, duration=0:00:07.577, duration_ms=7577, data={name=iot_getway_platform}
+timestamp=[2026-04-07 10:45:07], mode=PLATFORM_GENERATION, duration=0:00:32.789, duration_ms=32789, data={name=iot_getway_platform}
+timestamp=[2026-04-07 10:45:19], mode=BUILD, duration=0:00:00.243, duration_ms=243, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-07 10:45:22], mode=BUILD, duration=0:00:02.335, duration_ms=2335, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 10:45:29], mode=BUILD, duration=0:00:07.313, duration_ms=7313, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 10:45:49], mode=BUILD, duration=0:00:00.267, duration_ms=267, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-07 10:45:49], mode=BUILD, duration=0:00:00.132, duration_ms=132, data={name=iot_gateway_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-07 10:45:56], mode=PLATFORM_GENERATION, duration=0:00:06.735, duration_ms=6735, data={name=iot_getway_platform}
+timestamp=[2026-04-07 10:46:17], mode=PLATFORM_GENERATION, duration=0:00:16.353, duration_ms=16353, data={name=iot_getway_platform}
+timestamp=[2026-04-07 10:46:19], mode=BUILD, duration=0:00:02.386, duration_ms=2386, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 10:46:27], mode=BUILD, duration=0:00:07.779, duration_ms=7779, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 11:42:38], mode=PLATFORM_GENERATION, duration=0:00:12.394, duration_ms=12394, data={name=iot_getway_platform}
+timestamp=[2026-04-07 11:42:40], mode=PLATFORM_GENERATION, duration=0:00:02.283, duration_ms=2283, data={name=iot_getway_platform}
+timestamp=[2026-04-07 11:42:52], mode=PLATFORM_GENERATION, duration=0:00:02.265, duration_ms=2265, data={name=iot_getway_platform}
+timestamp=[2026-04-07 11:43:59], mode=PLATFORM_GENERATION, duration=0:00:34.156, duration_ms=34156, data={name=iot_getway_platform}
+timestamp=[2026-04-07 11:44:05], mode=BUILD, duration=0:00:00.297, duration_ms=297, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-07 11:44:11], mode=BUILD, duration=0:00:02.695, duration_ms=2695, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 12:33:22], mode=PLATFORM_GENERATION, duration=0:00:10.539, duration_ms=10539, data={name=iot_getway_platform}
+timestamp=[2026-04-07 12:33:44], mode=BUILD, duration=0:00:02.216, duration_ms=2216, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 12:34:00], mode=BUILD, duration=0:00:07.662, duration_ms=7662, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 12:39:07], mode=BUILD, duration=0:00:01.112, duration_ms=1112, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 12:39:14], mode=BUILD, duration=0:00:06.933, duration_ms=6933, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 13:55:02], mode=PLATFORM_GENERATION, duration=0:00:09.956, duration_ms=9956, data={name=iot_getway_platform}
+timestamp=[2026-04-07 13:58:16], mode=BUILD, duration=0:00:02.270, duration_ms=2270, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 13:58:32], mode=BUILD, duration=0:00:07.056, duration_ms=7056, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 14:02:27], mode=BUILD, duration=0:00:01.173, duration_ms=1173, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 14:02:35], mode=BUILD, duration=0:00:06.932, duration_ms=6932, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 14:06:11], mode=BUILD, duration=0:00:01.116, duration_ms=1116, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 14:06:18], mode=BUILD, duration=0:00:06.990, duration_ms=6990, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 20:44:14], mode=PLATFORM_CREATION, duration=0:00:23.678, duration_ms=23678, data={platform_source=dsa, os=standalone, processor=ps7_cortexa9, platform=null}
+timestamp=[2026-04-07 20:45:53], mode=PLATFORM_GENERATION, duration=0:00:36.971, duration_ms=36971, data={name=iot_gateway_platform}
+timestamp=[2026-04-07 20:46:49], mode=BUILD, duration=0:00:00.380, duration_ms=380, data={name=iot_gateway_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-07 20:49:10], mode=APP_CREATION, duration=0:00:10.465, duration_ms=10465, data={name=iot_gateway_app, project_type=sdk, os=standalone, processor=cortex-a9, runtime=C/C++, platform=iot_gateway_platform, application_type=application}
+timestamp=[2026-04-07 20:50:29], mode=PLATFORM_GENERATION, duration=0:00:08.637, duration_ms=8637, data={name=iot_gateway_platform}
+timestamp=[2026-04-07 20:51:02], mode=PLATFORM_GENERATION, duration=0:00:25.582, duration_ms=25582, data={name=iot_gateway_platform}
+timestamp=[2026-04-07 20:51:08], mode=BUILD, duration=0:00:03.909, duration_ms=3909, data={name=iot_gateway_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-07 20:51:19], mode=BUILD, duration=0:00:10.818, duration_ms=10818, data={name=iot_gateway_app_system, configuration=Debug, clean_build=false}
