@@ -3,15 +3,9 @@
     	
     <storageModule moduleId="org.eclipse.cdt.core.settings">
         		
-<<<<<<< HEAD
-        <cconfiguration id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.169803531">
+        <cconfiguration id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.572890144">
             			
-            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.169803531" moduleId="org.eclipse.cdt.core.settings" name="Debug">
-=======
-        <cconfiguration id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.2115732748">
-            			
-            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.2115732748" moduleId="org.eclipse.cdt.core.settings" name="Debug">
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.572890144" moduleId="org.eclipse.cdt.core.settings" name="Debug">
                 				
                 <externalSettings/>
                 				
@@ -27,31 +21,17 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-<<<<<<< HEAD
-                <configuration artifactName="${ProjName}" buildProperties="" description="" id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.169803531" name="Debug" parent="com.xilinx.sdx.system.managedbuilder.debugConfiguration">
+                <configuration artifactName="${ProjName}" buildProperties="" description="" id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.572890144" name="Debug" parent="com.xilinx.sdx.system.managedbuilder.debugConfiguration">
                     					
-                    <folderInfo id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.169803531." name="/" resourcePath="">
+                    <folderInfo id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.572890144." name="/" resourcePath="">
                         						
-                        <toolChain id="com.xilinx.sdx.system.managedbuilder.debug.toolChain.655608643" name="System Toolchain" superClass="com.xilinx.sdx.system.managedbuilder.debug.toolChain">
+                        <toolChain id="com.xilinx.sdx.system.managedbuilder.debug.toolChain.1193663632" name="System Toolchain" superClass="com.xilinx.sdx.system.managedbuilder.debug.toolChain">
                             							
-                            <targetPlatform id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.169803531..642747775" name=""/>
+                            <targetPlatform id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.572890144..1537804136" name=""/>
                             							
-                            <builder buildPath="${workspace_loc:/iot_gateway_app_system}/Debug" enableAutoBuild="true" id="com.xilinx.sdx.system.managedbuilder.systemBuilder.462509126" managedBuildOn="true" name="System Project Builder.Debug" superClass="com.xilinx.sdx.system.managedbuilder.systemBuilder"/>
+                            <builder buildPath="${workspace_loc:/iot_gateway_app_system}/Debug" enableAutoBuild="true" id="com.xilinx.sdx.system.managedbuilder.systemBuilder.496092685" managedBuildOn="true" name="System Project Builder.Debug" superClass="com.xilinx.sdx.system.managedbuilder.systemBuilder"/>
                             							
-                            <tool id="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool.411941263" name="System Builder" superClass="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool"/>
-=======
-                <configuration artifactName="${ProjName}" buildProperties="" description="" id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.2115732748" name="Debug" parent="com.xilinx.sdx.system.managedbuilder.debugConfiguration">
-                    					
-                    <folderInfo id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.2115732748." name="/" resourcePath="">
-                        						
-                        <toolChain id="com.xilinx.sdx.system.managedbuilder.debug.toolChain.518000584" name="System Toolchain" superClass="com.xilinx.sdx.system.managedbuilder.debug.toolChain">
-                            							
-                            <targetPlatform id="com.xilinx.sdx.system.managedbuilder.debugConfiguration.2115732748..220631826" name=""/>
-                            							
-                            <builder buildPath="${workspace_loc:/iot_gateway_app_system}/Debug" enableAutoBuild="true" id="com.xilinx.sdx.system.managedbuilder.systemBuilder.1739714700" managedBuildOn="true" name="System Project Builder.Debug" superClass="com.xilinx.sdx.system.managedbuilder.systemBuilder"/>
-                            							
-                            <tool id="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool.1390011421" name="System Builder" superClass="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool"/>
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
+                            <tool id="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool.938189796" name="System Builder" superClass="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool"/>
                             						
                         </toolChain>
                         					
@@ -65,15 +45,9 @@
             		
         </cconfiguration>
         		
-<<<<<<< HEAD
-        <cconfiguration id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.433635778">
+        <cconfiguration id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1332030989">
             			
-            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.433635778" moduleId="org.eclipse.cdt.core.settings" name="Release">
-=======
-        <cconfiguration id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1749692612">
-            			
-            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1749692612" moduleId="org.eclipse.cdt.core.settings" name="Release">
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1332030989" moduleId="org.eclipse.cdt.core.settings" name="Release">
                 				
                 <externalSettings/>
                 				
@@ -89,31 +63,17 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-<<<<<<< HEAD
-                <configuration artifactName="${ProjName}" buildProperties="" description="" id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.433635778" name="Release" parent="com.xilinx.sdx.system.managedbuilder.releaseConfiguration">
+                <configuration artifactName="${ProjName}" buildProperties="" description="" id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1332030989" name="Release" parent="com.xilinx.sdx.system.managedbuilder.releaseConfiguration">
                     					
-                    <folderInfo id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.433635778." name="/" resourcePath="">
+                    <folderInfo id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1332030989." name="/" resourcePath="">
                         						
-                        <toolChain id="com.xilinx.sdx.system.managedbuilder.release.toolChain.146804651" name="System Toolchain" superClass="com.xilinx.sdx.system.managedbuilder.release.toolChain">
+                        <toolChain id="com.xilinx.sdx.system.managedbuilder.release.toolChain.1827391699" name="System Toolchain" superClass="com.xilinx.sdx.system.managedbuilder.release.toolChain">
                             							
-                            <targetPlatform id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.433635778..1511229390" name=""/>
+                            <targetPlatform id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1332030989..1528753299" name=""/>
                             							
-                            <builder buildPath="${workspace_loc:/iot_gateway_app_system}/Release" enableAutoBuild="true" id="com.xilinx.sdx.system.managedbuilder.systemBuilder.365903531" managedBuildOn="true" name="System Project Builder.Release" superClass="com.xilinx.sdx.system.managedbuilder.systemBuilder"/>
+                            <builder buildPath="${workspace_loc:/iot_gateway_app_system}/Release" enableAutoBuild="true" id="com.xilinx.sdx.system.managedbuilder.systemBuilder.1905588750" managedBuildOn="true" name="System Project Builder.Release" superClass="com.xilinx.sdx.system.managedbuilder.systemBuilder"/>
                             							
-                            <tool id="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool.219164278" name="System Builder" superClass="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool"/>
-=======
-                <configuration artifactName="${ProjName}" buildProperties="" description="" id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1749692612" name="Release" parent="com.xilinx.sdx.system.managedbuilder.releaseConfiguration">
-                    					
-                    <folderInfo id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1749692612." name="/" resourcePath="">
-                        						
-                        <toolChain id="com.xilinx.sdx.system.managedbuilder.release.toolChain.1029738578" name="System Toolchain" superClass="com.xilinx.sdx.system.managedbuilder.release.toolChain">
-                            							
-                            <targetPlatform id="com.xilinx.sdx.system.managedbuilder.releaseConfiguration.1749692612..1060094658" name=""/>
-                            							
-                            <builder buildPath="${workspace_loc:/iot_gateway_app_system}/Release" enableAutoBuild="true" id="com.xilinx.sdx.system.managedbuilder.systemBuilder.733739752" managedBuildOn="true" name="System Project Builder.Release" superClass="com.xilinx.sdx.system.managedbuilder.systemBuilder"/>
-                            							
-                            <tool id="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool.1828643953" name="System Builder" superClass="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool"/>
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
+                            <tool id="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool.2015803509" name="System Builder" superClass="com.xilinx.sdx.system.managedbuilder.toolchain.cfjoinTool"/>
                             						
                         </toolChain>
                         					
@@ -133,11 +93,7 @@
     	
     <storageModule moduleId="cdtBuildSystem" version="4.0.0">
         		
-<<<<<<< HEAD
-        <project id="iot_gateway_app_system.com.xilinx.sdx.system.managedbuilder.projectType.276948062" name="Vitis Embedded System Project" projectType="com.xilinx.sdx.system.managedbuilder.projectType"/>
-=======
-        <project id="iot_gateway_app_system.com.xilinx.sdx.system.managedbuilder.projectType.268257273" name="Vitis Embedded System Project" projectType="com.xilinx.sdx.system.managedbuilder.projectType"/>
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
+        <project id="iot_gateway_app_system.com.xilinx.sdx.system.managedbuilder.projectType.868251348" name="Vitis Embedded System Project" projectType="com.xilinx.sdx.system.managedbuilder.projectType"/>
         	
     </storageModule>
     	
@@ -146,10 +102,7 @@
         <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
         	
     </storageModule>
-<<<<<<< HEAD
     	
     <storageModule moduleId="refreshScope"/>
-=======
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     
 </cproject>

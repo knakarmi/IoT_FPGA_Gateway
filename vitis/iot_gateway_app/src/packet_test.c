@@ -2,19 +2,15 @@
  * IoT Gateway - Week 7
  * File   : packet_test.c
  * Purpose: Send a test packet through the DMA->AES pipeline and verify output
-<<<<<<< HEAD
  *
  * Fix v2: - Re-arm RX BD ring BEFORE TX so S2MM is always ready
  *         - Dump DMA Status Register on RX timeout for diagnosis
  *         - Extended TX/RX timeout to 2 s to accommodate AES latency
-=======
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
  * =============================================================================
  */
 
 #include "packet_test.h"
 #include "dma_handler.h"
-<<<<<<< HEAD
 #include "interrupt_handler.h"
 #include "xil_printf.h"
 #include "xil_io.h"
@@ -58,14 +54,6 @@ static void dump_dma_status(void)
     xil_printf("  Hint: S2MM Idle=1 + IRQOnCmp=0 = data never arrived at S2MM\r\n");
     xil_printf("        S2MM Halted=1 = S2MM stopped (error or not started)\r\n");
 }
-=======
-#include "xil_printf.h"
-#include "sleep.h"
-#include <string.h>
-
-/* Timeout waiting for DMA completion (in microseconds) */
-#define DMA_TIMEOUT_US      500000  /* 500 ms */
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
 
 /* ---------------------------------------------------------------------------
  * run_packet_test
@@ -79,23 +67,15 @@ int run_packet_test(const u8 *pkt, u32 len)
     u32 timeout = 0;
     u32 i;
 
-<<<<<<< HEAD
     xil_printf("PKT TEST: Sending %lu byte packet through AES pipeline\r\n", len);
 
     /* Print plaintext header */
-=======
-    xil_printf("PKT TEST: Sending %lu byte packet through AES pipeline\r\n",
-               len);
-
-    /* Print plaintext */
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     xil_printf("PKT TEST: Plaintext (first 16 bytes):\r\n  ");
     for (i = 0; i < 16 && i < len; i++) {
         xil_printf("%02X ", pkt[i]);
     }
     xil_printf("\r\n");
 
-<<<<<<< HEAD
     /* ------------------------------------------------------------------
      * CRITICAL: Re-arm RX BD ring BEFORE sending TX.
      * S2MM must have a buffer descriptor ready before data arrives.
@@ -107,8 +87,6 @@ int run_packet_test(const u8 *pkt, u32 len)
         return status;
     }
 
-=======
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     /* Send packet via DMA MM2S */
     status = dma_send_packet((u8 *)pkt, len);
     if (status != XST_SUCCESS) {
@@ -122,28 +100,19 @@ int run_packet_test(const u8 *pkt, u32 len)
         usleep(100);
         timeout += 100;
         if (timeout >= DMA_TIMEOUT_US) {
-<<<<<<< HEAD
             xil_printf("PKT TEST: TX timeout! (DMA MM2S never completed)\r\n");
             dump_dma_status();
-=======
-            xil_printf("PKT TEST: TX timeout!\r\n");
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
             return XST_FAILURE;
         }
     }
 
     if (g_dma_error) {
-<<<<<<< HEAD
         xil_printf("PKT TEST: DMA error during TX (g_dma_error set in ISR)\r\n");
         dump_dma_status();
-=======
-        xil_printf("PKT TEST: DMA error during TX\r\n");
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
         g_dma_error = 0;
         return XST_FAILURE;
     }
 
-<<<<<<< HEAD
     xil_printf("PKT TEST: TX complete (g_dma_tx_done=1), waiting for RX...\r\n");
 
     /* ------------------------------------------------------------------
@@ -151,16 +120,10 @@ int run_packet_test(const u8 *pkt, u32 len)
      * If interrupt never fires (IRQ routing issue), fall back to direct
      * S2MM status register polling which bypasses the GIC entirely.
      * ------------------------------------------------------------------ */
-=======
-    xil_printf("PKT TEST: TX complete, waiting for RX...\r\n");
-
-    /* Wait for RX completion (S2MM) */
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     timeout = 0;
     while (!g_dma_rx_done && !g_dma_error) {
         usleep(100);
         timeout += 100;
-<<<<<<< HEAD
         if (timeout >= 500000) {  /* 500 ms interrupt window */
             xil_printf("PKT TEST: interrupt timeout - trying polling fallback...\r\n");
             xil_printf("          (S2MM IOC seen in SR but IRQ %d may not reach GIC)\r\n",
@@ -180,20 +143,12 @@ int run_packet_test(const u8 *pkt, u32 len)
                 return XST_FAILURE;
             }
             break;
-=======
-        if (timeout >= DMA_TIMEOUT_US) {
-            xil_printf("PKT TEST: RX timeout!\r\n");
-            return XST_FAILURE;
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
         }
     }
 
     if (g_dma_error) {
         xil_printf("PKT TEST: DMA error during RX\r\n");
-<<<<<<< HEAD
         dump_dma_status();
-=======
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
         g_dma_error = 0;
         return XST_FAILURE;
     }
@@ -205,7 +160,6 @@ int run_packet_test(const u8 *pkt, u32 len)
         return status;
     }
 
-<<<<<<< HEAD
     /* If recv still reports 0 bytes, inspect the DMA rx_buf directly.
      * This catches the case where BD length is unreliable but the
      * AES core actually wrote data into the buffer. */
@@ -240,8 +194,6 @@ int run_packet_test(const u8 *pkt, u32 len)
         }
     }
 
-=======
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     /* Print ciphertext */
     xil_printf("PKT TEST: Ciphertext received (%lu bytes):\r\n  ", rx_len);
     for (i = 0; i < rx_len && i < 32; i++) {
@@ -250,7 +202,6 @@ int run_packet_test(const u8 *pkt, u32 len)
     }
     xil_printf("\r\n");
 
-<<<<<<< HEAD
     /* Sanity check: encrypted output must differ from plaintext */
     if (rx_len > 0 && memcmp(pkt, rx_buf, rx_len < len ? rx_len : len) == 0) {
         xil_printf("PKT TEST: WARNING - output identical to input!\r\n");
@@ -269,15 +220,6 @@ int run_packet_test(const u8 *pkt, u32 len)
                    len, rx_len);
     }
 
-=======
-    /* Basic sanity check: output should not be identical to input */
-    if (rx_len > 0 && memcmp(pkt, rx_buf, rx_len < len ? rx_len : len) == 0) {
-        xil_printf("PKT TEST: WARNING - output identical to input!\r\n");
-        xil_printf("          AES core may not be encrypting correctly\r\n");
-        return XST_FAILURE;
-    }
-
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
     xil_printf("PKT TEST: PASS - output differs from input (encryption active)\r\n");
     return XST_SUCCESS;
 }
