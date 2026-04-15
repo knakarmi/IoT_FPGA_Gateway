@@ -1,5 +1,5 @@
 /* =============================================================================
- * IoT Gateway - Week 7
+ * IoT Gateway - Week 9
  * File   : main.c
  * Target : Zynq ZC706 PS (ARM Cortex-A9)
  * Purpose: Main entry point - initializes all subsystems and runs the
@@ -22,6 +22,7 @@
 #include "aes_key_loader.h"
 #include "interrupt_handler.h"
 #include "packet_test.h"
+#include "packet_parser.h"
 
 /* ---------------------------------------------------------------------------
  * NIST AES-256-GCM Test Vector (SP 800-38D)
@@ -89,7 +90,7 @@ int main(void)
     xil_printf("\r\n");
     xil_printf("========================================\r\n");
     xil_printf("  IoT Gateway - Zynq ZC706\r\n");
-    xil_printf("  ELE598 Research Project - Week 8\r\n");
+    xil_printf("  ELE598 Research Project - Week 9\r\n");
     xil_printf("========================================\r\n");
 
     /* Disable caches for DMA regions (important for coherency) */
@@ -155,6 +156,26 @@ int main(void)
     }
 
     /* ------------------------------------------------------------------
+     * 3c. Parse the test packet to verify header fields before encryption
+     *     This demonstrates the packet inspection capability of the gateway.
+     *     In a real system this runs on ingress before the packet enters
+     *     the encryption pipeline.
+     * ------------------------------------------------------------------ */
+    xil_printf("[3c] Parsing test packet headers...\r\n");
+    {
+        iot_packet_t parsed_pkt;
+        int parse_result = parse_packet(TEST_PACKET, sizeof(TEST_PACKET),
+                                        &parsed_pkt);
+        if (parse_result == PARSE_OK) {
+            print_packet_info(&parsed_pkt);
+            xil_printf("    OK - Packet parsed successfully\r\n");
+        } else {
+            xil_printf("    WARNING: Parse failed (code %d) - "
+                       "proceeding anyway\r\n", parse_result);
+        }
+    }
+
+    /* ------------------------------------------------------------------
      * 4. Run NIST test vector verification
      * ------------------------------------------------------------------ */
     xil_printf("[4] Running packet transfer test...\r\n");
@@ -164,10 +185,6 @@ int main(void)
         return XST_FAILURE;
     }
     xil_printf("    OK - Packet test passed\r\n");
-
-    xil_printf("[4] Running temp packet transfer test...\r\n");
-    static const u8 TEST_PACKET2[64] = {0}; /* all zeros */
-    status = run_packet_test(TEST_PACKET2, sizeof(TEST_PACKET2));
 
     /* ------------------------------------------------------------------
      * 5. Main processing loop
