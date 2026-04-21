@@ -1,8 +1,6 @@
 /* =============================================================================
  * IoT Gateway - Week 7
  * File   : interrupt_handler.c
- * Fix v2 : Pass &dma_inst as callback instead of NULL
- *          This fixes the Data Abort crash in dma_mm2s_isr/dma_s2mm_isr
  * =============================================================================
  */
 

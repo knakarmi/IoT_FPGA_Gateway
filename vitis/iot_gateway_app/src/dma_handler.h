@@ -1,7 +1,6 @@
 /* =============================================================================
  * IoT Gateway - Week 7
  * File   : dma_handler.h
- * Fix v2 : Export dma_inst so interrupt_handler can pass it as callback
  * =============================================================================
  */
 #ifndef DMA_HANDLER_H
@@ -12,7 +11,7 @@
 #include "xil_types.h"
 
 #define DMA_MAX_PKT_LEN     2048
-#define DMA_BD_COUNT        16
+#define DMA_BD_COUNT        1024
 #define DMA_COALESCE_COUNT  1
 #define CACHE_LINE_SIZE     32
 

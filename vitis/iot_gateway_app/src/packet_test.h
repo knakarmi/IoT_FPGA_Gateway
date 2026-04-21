@@ -1,7 +1,6 @@
 /* =============================================================================
  * IoT Gateway - Week 7
  * File   : packet_test.h
- * Fix v2 : Cleaned up - interrupt_handler.h moved to .c file
  * =============================================================================
  */
 #ifndef PACKET_TEST_H

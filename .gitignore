@@ -11,12 +11,8 @@
 *.sim/
 *.tmp/
 *.Xil/
-<<<<<<< HEAD
 *ip/
 *ui/
-=======
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
-
 
 # Custom Folders
 block_diagram_export/
@@ -26,7 +22,6 @@ tcl/
 *.log
 *.jou
 *.str
-<<<<<<< HEAD
 *.dcp
 *.xsa
 *.hwdef
@@ -37,8 +32,6 @@ tcl/
 *.bda
 *.xci
 *.ui
-=======
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c
 
 # Backup files
 *.backup
@@ -61,7 +54,6 @@ tcl/
 .DS_Store
 Thumbs.db
 
-<<<<<<< HEAD
 # Vitis generated files
 *.runs/
 *.build/
@@ -93,8 +85,6 @@ RemoteSystemsTempFiles/
 */iot_gateway_platform/
 */RemoteSystemsTempFiles/
 
-
-
 # Vitis HLS
 solution*/
 *.adb
@@ -112,5 +102,3 @@ solution*/
 !Makefile
 **/.lock
 vitis/.metadata/
-=======
->>>>>>> 3c2b6896d3e5cba170d24fac102d36292189d63c

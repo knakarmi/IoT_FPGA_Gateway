@@ -1,5 +1,5 @@
 /* =============================================================================
- * IoT Gateway - Week 9
+ * IoT Gateway - Week 10
  * File   : main.c
  * Target : Zynq ZC706 PS (ARM Cortex-A9)
  * Purpose: Main entry point - initializes all subsystems and runs the
@@ -23,6 +23,8 @@
 #include "interrupt_handler.h"
 #include "packet_test.h"
 #include "packet_parser.h"
+#include "functional_test.h"
+#include "timing.h"
 
 /* ---------------------------------------------------------------------------
  * NIST AES-256-GCM Test Vector (SP 800-38D)
@@ -37,10 +39,10 @@ static const u8 TEST_KEY[32] = {
     0xAB, 0x80, 0xBD, 0x52, 0x95, 0xAE, 0x6B, 0xE7
 };
 
-static const u8 TEST_IV[12] = {
-    0xF0, 0x76, 0x1E, 0x8D, 0xCD, 0x3D,
-    0x00, 0x01, 0x76, 0xD4, 0x57, 0xED
-};
+/* IV is generated at runtime using the ARM cycle counter so each
+ * program run produces unique ciphertext. In production this would
+ * be a cryptographically random nonce managed by a key server. */
+static u8 TEST_IV[12];
 
 /* ---------------------------------------------------------------------------
  * Test packet: minimal IPv4/UDP/IoT frame (64 bytes)
@@ -90,7 +92,7 @@ int main(void)
     xil_printf("\r\n");
     xil_printf("========================================\r\n");
     xil_printf("  IoT Gateway - Zynq ZC706\r\n");
-    xil_printf("  ELE598 Research Project - Week 9\r\n");
+    xil_printf("  ELE598 Research Project - Week 10\r\n");
     xil_printf("========================================\r\n");
 
     /* Disable caches for DMA regions (important for coherency) */
@@ -122,6 +124,27 @@ int main(void)
      * 3. Load AES-256 key and IV into PL
      * ------------------------------------------------------------------ */
     xil_printf("[3] Loading AES-256 key and IV...\r\n");
+    /* Generate unique IV from cycle counter for this session */
+    {
+    	/* Use XADC temp to vary sleep duration, then read cycle counter */
+    	u32 xadc_temp = Xil_In32(0xF8007200) & 0xFFF;
+    	usleep(xadc_temp);  /* sleep 0-4095 us based on temperature */
+    	u32 t0 = timing_now();
+    	u32 t1 = t0 ^ (xadc_temp << 20) ^ (xadc_temp * 1234567);
+    	u32 t2 = t1 ^ (t0 >> 3) ^ 0xDEADBEEF;
+
+    	TEST_IV[0]  = (t0 >> 24)&0xFF; TEST_IV[1]  = (t0 >> 16)&0xFF;
+    	TEST_IV[2]  = (t0 >>  8)&0xFF; TEST_IV[3]  = (t0      )&0xFF;
+    	TEST_IV[4]  = (t1 >> 24)&0xFF; TEST_IV[5]  = (t1 >> 16)&0xFF;
+    	TEST_IV[6]  = (t1 >>  8)&0xFF; TEST_IV[7]  = (t1      )&0xFF;
+    	TEST_IV[8]  = (t2 >> 24)&0xFF; TEST_IV[9]  = (t2 >> 16)&0xFF;
+    	TEST_IV[10] = (t2 >>  8)&0xFF; TEST_IV[11] = (t2      )&0xFF;
+
+        xil_printf("    IV: %02X%02X%02X%02X %02X%02X%02X%02X %02X%02X%02X%02X",
+                   TEST_IV[0],TEST_IV[1],TEST_IV[2],TEST_IV[3],
+                   TEST_IV[4],TEST_IV[5],TEST_IV[6],TEST_IV[7],
+                   TEST_IV[8],TEST_IV[9],TEST_IV[10],TEST_IV[11]);
+    }
     status = aes_load_key(TEST_KEY, TEST_IV);
     if (status != XST_SUCCESS) {
         xil_printf("ERROR: AES key load failed (%d)\r\n", status);
@@ -156,10 +179,7 @@ int main(void)
     }
 
     /* ------------------------------------------------------------------
-     * 3c. Parse the test packet to verify header fields before encryption
-     *     This demonstrates the packet inspection capability of the gateway.
-     *     In a real system this runs on ingress before the packet enters
-     *     the encryption pipeline.
+     * 3c. Parse the test packet to verify header fields
      * ------------------------------------------------------------------ */
     xil_printf("[3c] Parsing test packet headers...\r\n");
     {
@@ -170,21 +190,17 @@ int main(void)
             print_packet_info(&parsed_pkt);
             xil_printf("    OK - Packet parsed successfully\r\n");
         } else {
-            xil_printf("    WARNING: Parse failed (code %d) - "
-                       "proceeding anyway\r\n", parse_result);
+            xil_printf("    WARNING: Parse failed (code %d)\r\n",
+                       parse_result);
         }
     }
 
     /* ------------------------------------------------------------------
-     * 4. Run NIST test vector verification
+     * 4. Run Week 10 functional test suite
      * ------------------------------------------------------------------ */
-    xil_printf("[4] Running packet transfer test...\r\n");
-    status = run_packet_test(TEST_PACKET, sizeof(TEST_PACKET));
-    if (status != XST_SUCCESS) {
-        xil_printf("ERROR: Packet test failed (%d)\r\n", status);
-        return XST_FAILURE;
-    }
-    xil_printf("    OK - Packet test passed\r\n");
+    xil_printf("[4] Running functional test suite...\r\n");
+    run_functional_tests();
+    xil_printf("    OK - Functional tests complete\r\n");
 
     /* ------------------------------------------------------------------
      * 5. Main processing loop

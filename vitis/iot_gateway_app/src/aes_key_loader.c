@@ -19,22 +19,25 @@
 #include "xil_io.h"
 #include "sleep.h"
 
+/* ============================================================================
+ * GPIO base addresses - use XPAR_* canonical names from xparameters.h
+ * ============================================================================ */
 #define AES_GPIO_CTRL_BASE    XPAR_AXI_GPIO_CTRL_BASEADDR
 #define AES_GPIO_KEYVAL_BASE  XPAR_AXI_GPIO_KEY_VAL_BASEADDR
 #define AES_GPIO_STATUS_BASE  XPAR_AXI_GPIO_STATUS_BASEADDR
 
-#define AES_GPIO_KEY_W0   0x41230000U
-#define AES_GPIO_KEY_W1   0x41240000U
-#define AES_GPIO_KEY_W2   0x41250000U
-#define AES_GPIO_KEY_W3   0x41260000U
-#define AES_GPIO_KEY_W4   0x41270000U
-#define AES_GPIO_KEY_W5   0x41280000U
-#define AES_GPIO_KEY_W6   0x41290000U
-#define AES_GPIO_KEY_W7   0x412A0000U
-#define AES_GPIO_IV_VAL   0x412B0000U
-#define AES_GPIO_IV_W0    0x412C0000U
-#define AES_GPIO_IV_W1    0x412D0000U
-#define AES_GPIO_IV_W2    0x412E0000U
+#define AES_GPIO_IV_W0        XPAR_AXI_GPIO_IV_BASEADDR
+#define AES_GPIO_IV_W1        XPAR_AXI_GPIO_IV1_BASEADDR
+#define AES_GPIO_IV_W2        XPAR_AXI_GPIO_IV2_BASEADDR
+
+#define AES_GPIO_KEY_W0       XPAR_AXI_GPIO_KEY_W0_BASEADDR
+#define AES_GPIO_KEY_W1       XPAR_AXI_GPIO_KEY_W1_BASEADDR
+#define AES_GPIO_KEY_W2       XPAR_AXI_GPIO_KEY_W2_BASEADDR
+#define AES_GPIO_KEY_W3       XPAR_AXI_GPIO_KEY_W3_BASEADDR
+#define AES_GPIO_KEY_W4       XPAR_AXI_GPIO_KEY_W4_BASEADDR
+#define AES_GPIO_KEY_W5       XPAR_AXI_GPIO_KEY_W5_BASEADDR
+#define AES_GPIO_KEY_W6       XPAR_AXI_GPIO_KEY_W6_BASEADDR
+#define AES_GPIO_KEY_W7       XPAR_AXI_GPIO_KEY_W7_BASEADDR
 
 #define GPIO_DATA_OFFSET  0x00
 #define GPIO_TRI_OFFSET   0x04
@@ -77,11 +80,10 @@ int aes_load_key(const u8 *key, const u8 *iv)
         AES_GPIO_IV_W0, AES_GPIO_IV_W1, AES_GPIO_IV_W2
     };
 
-    /* Set GPIO directions */
+    /* Set GPIO directions (all outputs except STATUS which is input) */
     Xil_Out32(AES_GPIO_CTRL_BASE   + GPIO_TRI_OFFSET, 0x00000000);
     Xil_Out32(AES_GPIO_KEYVAL_BASE + GPIO_TRI_OFFSET, 0x00000000);
     Xil_Out32(AES_GPIO_STATUS_BASE + GPIO_TRI_OFFSET, 0xFFFFFFFF);
-    Xil_Out32(AES_GPIO_IV_VAL      + GPIO_TRI_OFFSET, 0x00000000);
     for (i = 0; i < 8; i++)
         Xil_Out32(key_gpios[i] + GPIO_TRI_OFFSET, 0x00000000);
     for (i = 0; i < 3; i++)
@@ -118,25 +120,12 @@ int aes_load_key(const u8 *key, const u8 *iv)
     gpio_delay();
 
     /* ------------------------------------------------------------------
-     * Step 3: Assert key_word_val = 0x7 (load all groups)
+     * Step 3: Write all 3 IV words BEFORE pulsing key_val.
+     *
+     * Pulsing 0x7 on key_val therefore latches the key AND the IV in the same clock.
+     * Both must be stable on their respective GPIOs when that pulse happens.
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [3] key_word_val=0x7...\r\n");
-    gpio_write(AES_GPIO_KEYVAL_BASE, KEY_VAL_ALL_GROUPS);
-    usleep(10);
-    gpio_write(AES_GPIO_KEYVAL_BASE, 0x00);
-    gpio_delay();
-
-    /* ------------------------------------------------------------------
-     * Step 4: Set enc_dec=1 (bit0 only, no other bits)
-     * ------------------------------------------------------------------ */
-    xil_printf("AES: [4] enc_dec=1 (0x01)...\r\n");
-    gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC);  /* 0x01 */
-    usleep(10);
-
-    /* ------------------------------------------------------------------
-     * Step 5: Write IV words
-     * ------------------------------------------------------------------ */
-    xil_printf("AES: [5] Writing IV words...\r\n");
+    xil_printf("AES: [3] Writing IV words...\r\n");
     for (i = 0; i < 3; i++) {
         gpio_write(iv_gpios[i], ivw[i]);
         xil_printf("  iv_w%d = 0x%08X\r\n", i, (unsigned int)ivw[i]);
@@ -144,38 +133,51 @@ int aes_load_key(const u8 *key, const u8 *iv)
     gpio_delay();
 
     /* ------------------------------------------------------------------
-     * Step 6: Assert iv_val to latch IV
+     * Step 4: Pulse key_word_val = 0x7 (also pulses iv_val simultaneously).
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [6] iv_val pulse...\r\n");
-    gpio_write(AES_GPIO_IV_VAL, 1);
+    xil_printf("AES: [4] key_word_val=0x7 (also iv_val pulse)...\r\n");
+    gpio_write(AES_GPIO_KEYVAL_BASE, KEY_VAL_ALL_GROUPS);
     usleep(10);
-    gpio_write(AES_GPIO_IV_VAL, 0);
+    gpio_write(AES_GPIO_KEYVAL_BASE, 0x00);
     gpio_delay();
 
     /* ------------------------------------------------------------------
-     * Step 7: Pulse icb_start_cnt (bit2) while keeping enc_dec (bit0)
-     * Writing 0x05 = bit2|bit0 = icb_start + enc_dec
-     * Then 0x01 = deassert icb_start, keep enc_dec
+     * Step 5: Set enc_dec=1 (bit0 only)
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [7] icb_start pulse (0x05 -> 0x01)...\r\n");
+    xil_printf("AES: [5] enc_dec=1 (0x01)...\r\n");
+    gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC);  /* 0x01 */
+    usleep(10);
+
+    /* ------------------------------------------------------------------
+     * Step 6: Pulse icb_start_cnt (bit2) while keeping enc_dec (bit0)
+     *   0x05 = bit2|bit0 = icb_start + enc_dec
+     *   0x01 = deassert icb_start, keep enc_dec
+     * This kicks off H = AES(0) then J0 = AES(IV||1) internally.
+     * ------------------------------------------------------------------ */
+    xil_printf("AES: [6] icb_start pulse (0x05 -> 0x01)...\r\n");
     gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC | CTRL_ICB_START);  /* 0x05 */
     usleep(10);
     gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC);  /* 0x01 */
     usleep(10);
 
     /* ------------------------------------------------------------------
-     * Step 8: Assert ghash_pkt_val (bit1) + enc_dec (bit0) = 0x03
+     * Step 7: Briefly assert ghash_pkt_val so the core completes
+     * initialization (computes H and J0 registers). This pulse is NOT
+     * the per-packet ghash_pkt_val - that's handled by aes_start_packet().
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [8] ghash_pkt_val (0x03)...\r\n");
-    gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC | CTRL_GHASH_PKT_VAL);  /* 0x03 */
+    xil_printf("AES: [7] ghash_pkt_val (0x03) brief pulse for init...\r\n");
+    gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC | CTRL_GHASH_PKT_VAL);
+    usleep(10);
+    gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC);  /* drop back to enc_dec only */
+    usleep(10000);  /* settle before polling ready_o */
 
     /* ------------------------------------------------------------------
-     * Step 9: Poll ready_o
+     * Step 8: Poll ready_o
      * H0 = AES(0) needs ~14 pipeline stages = ~70ns at 200MHz
      * J0 = AES(IV||1) needs another ~70ns
      * Total < 1us; poll for 50ms max
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [9] Polling ready_o...\r\n");
+    xil_printf("AES: [8] Polling ready_o...\r\n");
     for (i = 0; i < 50000; i++) {
         status = gpio_read(AES_GPIO_STATUS_BASE);
         if (status & 0x1) {
@@ -200,4 +202,51 @@ int aes_verify_ready(void)
     xil_printf("AES: Status GPIO = 0x%08X (bit0=ready)\r\n",
                (unsigned int)status);
     return (status & 0x1) ? XST_SUCCESS : XST_FAILURE;
+}
+
+/* =============================================================================
+ * Per-packet control helpers
+ *
+ * The AES-GCM core is level-sensitive on ghash_pkt_val_i:
+ *   - Must be HIGH for the entire duration of a packet's data beats
+ *   - Must go LOW after the last data beat to trigger EOP (tag finalize)
+ *
+ * The ICB counter is sticky: once icb_start_cnt_i is pulsed, the counter
+ * latches "running" and auto-increments. Pulsing icb_start_cnt_i again
+ * RESETS the counter to J0 starting value. That's what we want between
+ * packets so each packet starts encrypting from J0+1 (fresh GHASH state).
+ *
+ * Sequence:
+ *   aes_start_packet()
+ *     -> pulse icb_start_cnt to reset counter to J0
+ *     -> raise ghash_pkt_val high (stays high while data streams)
+ *   [DMA transfer happens]
+ *   aes_end_packet()
+ *     -> drop ghash_pkt_val low (falling edge = EOP, tag finalized)
+ * ============================================================================= */
+
+void aes_start_packet(void)
+{
+    /* For subsequent packets under the same IV+key, we do NOT pulse
+     * icb_start_cnt. Doing so was pushing new ICB blocks into an ECB
+     * pipeline whose last-round output still holds an unacknowledged
+     * keystream block from end-of-previous-packet, causing a wedge.
+     *
+     * Instead: just raise ghash_pkt_val. The counter is still running
+     * (iv_val_q latched high by the initial icb_start_cnt in aes_load_key).
+     * Raising ghash_pkt_val reopens the CT/AAD valid gates in
+     * aes_enc_dec_ctrl, and when plaintext bytes arrive, gctr_ack pulses,
+     * draining the pipeline. Normal GCM operation: counter advances
+     * continuously across packets under the same IV. */
+    gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC | CTRL_GHASH_PKT_VAL); /* 0x03 */
+}
+
+void aes_end_packet(void)
+{
+    /* Falling edge on ghash_pkt_val triggers EOP inside gcm_ghash:
+     *   eop <= pkt_val_q and not(ghash_pkt_val_i);
+     * EOP causes the core to finalize the auth tag and drive TLAST on
+     * the output AXI-Stream, which closes the S2MM BD. */
+    gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC);                    /* 0x01 */
+    gpio_delay();
 }
