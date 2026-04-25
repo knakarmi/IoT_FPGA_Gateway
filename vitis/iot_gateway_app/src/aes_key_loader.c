@@ -8,8 +8,8 @@
  *   bit[3] = aes_gcm_icb_stop_cnt_i
  *   bit[4] = aes_gcm_pipe_reset_i  (active HIGH)
  *
- * IMPORTANT: Before fix, all 4 pins were on the same net so every write
- * simultaneously asserted pipe_reset, preventing ready_o from ever asserting.
+ * UART output is quiet by default. Set AES_LOADER_VERBOSE=1 to re-enable
+ * the step-by-step load sequence prints (useful for debugging only).
  * =============================================================================
  */
 
@@ -18,6 +18,23 @@
 #include "xil_printf.h"
 #include "xil_io.h"
 #include "sleep.h"
+
+
+/* ---------------------------------------------------------------------------
+ * Verbosity control
+ *   0 = quiet (default - no prints on successful load)
+ *   1 = verbose (original Week 10 step-by-step narration)
+ * --------------------------------------------------------------------------- */
+#ifndef AES_LOADER_VERBOSE
+#define AES_LOADER_VERBOSE 0
+#endif
+
+#if AES_LOADER_VERBOSE
+#define AES_DBG(...) xil_printf(__VA_ARGS__)
+#else
+#define AES_DBG(...) do { } while (0)
+#endif
+
 
 /* ============================================================================
  * GPIO base addresses - use XPAR_* canonical names from xparameters.h
@@ -103,7 +120,7 @@ int aes_load_key(const u8 *key, const u8 *iv)
      * Step 1: Assert pipe_reset (bit4 only - other bits stay 0)
      * With xlslice fix, writing 0x10 ONLY asserts pipe_reset_i
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [1] pipe_reset (0x10)...\r\n");
+    AES_DBG("AES: [1] pipe_reset (0x10)...\r\n");
     gpio_write(AES_GPIO_CTRL_BASE, CTRL_PIPE_RESET);  /* 0x10 */
     usleep(100);
     gpio_write(AES_GPIO_CTRL_BASE, 0x00);
@@ -112,10 +129,10 @@ int aes_load_key(const u8 *key, const u8 *iv)
     /* ------------------------------------------------------------------
      * Step 2: Write all 8 key words
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [2] Writing key words...\r\n");
+    AES_DBG("AES: [2] Writing key words...\r\n");
     for (i = 0; i < 8; i++) {
         gpio_write(key_gpios[i], kw[i]);
-        xil_printf("  key_w%d = 0x%08X\r\n", i, (unsigned int)kw[i]);
+        AES_DBG("  key_w%d = 0x%08X\r\n", i, (unsigned int)kw[i]);
     }
     gpio_delay();
 
@@ -125,17 +142,17 @@ int aes_load_key(const u8 *key, const u8 *iv)
      * Pulsing 0x7 on key_val therefore latches the key AND the IV in the same clock.
      * Both must be stable on their respective GPIOs when that pulse happens.
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [3] Writing IV words...\r\n");
+    AES_DBG("AES: [3] Writing IV words...\r\n");
     for (i = 0; i < 3; i++) {
         gpio_write(iv_gpios[i], ivw[i]);
-        xil_printf("  iv_w%d = 0x%08X\r\n", i, (unsigned int)ivw[i]);
+        AES_DBG("  iv_w%d = 0x%08X\r\n", i, (unsigned int)ivw[i]);
     }
     gpio_delay();
 
     /* ------------------------------------------------------------------
      * Step 4: Pulse key_word_val = 0x7 (also pulses iv_val simultaneously).
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [4] key_word_val=0x7 (also iv_val pulse)...\r\n");
+    AES_DBG("AES: [4] key_word_val=0x7 (also iv_val pulse)...\r\n");
     gpio_write(AES_GPIO_KEYVAL_BASE, KEY_VAL_ALL_GROUPS);
     usleep(10);
     gpio_write(AES_GPIO_KEYVAL_BASE, 0x00);
@@ -144,7 +161,7 @@ int aes_load_key(const u8 *key, const u8 *iv)
     /* ------------------------------------------------------------------
      * Step 5: Set enc_dec=1 (bit0 only)
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [5] enc_dec=1 (0x01)...\r\n");
+    AES_DBG("AES: [5] enc_dec=1 (0x01)...\r\n");
     gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC);  /* 0x01 */
     usleep(10);
 
@@ -154,7 +171,7 @@ int aes_load_key(const u8 *key, const u8 *iv)
      *   0x01 = deassert icb_start, keep enc_dec
      * This kicks off H = AES(0) then J0 = AES(IV||1) internally.
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [6] icb_start pulse (0x05 -> 0x01)...\r\n");
+    AES_DBG("AES: [6] icb_start pulse (0x05 -> 0x01)...\r\n");
     gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC | CTRL_ICB_START);  /* 0x05 */
     usleep(10);
     gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC);  /* 0x01 */
@@ -165,7 +182,7 @@ int aes_load_key(const u8 *key, const u8 *iv)
      * initialization (computes H and J0 registers). This pulse is NOT
      * the per-packet ghash_pkt_val - that's handled by aes_start_packet().
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [7] ghash_pkt_val (0x03) brief pulse for init...\r\n");
+    AES_DBG("AES: [7] ghash_pkt_val (0x03) brief pulse for init...\r\n");
     gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC | CTRL_GHASH_PKT_VAL);
     usleep(10);
     gpio_write(AES_GPIO_CTRL_BASE, CTRL_ENC_DEC);  /* drop back to enc_dec only */
@@ -177,17 +194,18 @@ int aes_load_key(const u8 *key, const u8 *iv)
      * J0 = AES(IV||1) needs another ~70ns
      * Total < 1us; poll for 50ms max
      * ------------------------------------------------------------------ */
-    xil_printf("AES: [8] Polling ready_o...\r\n");
+    AES_DBG("AES: [8] Polling ready_o...\r\n");
     for (i = 0; i < 50000; i++) {
         status = gpio_read(AES_GPIO_STATUS_BASE);
         if (status & 0x1) {
-            xil_printf("AES: ready_o=1 after %d us\r\n", i);
-            xil_printf("AES: Key loaded successfully\r\n");
+            AES_DBG("AES: ready_o=1 after %d us\r\n", i);
+            AES_DBG("AES: Key loaded successfully\r\n");
             return XST_SUCCESS;
         }
         usleep(1);
     }
 
+    /* Timeout is a real problem - always print this */
     xil_printf("AES: WARNING - ready_o never asserted (50ms timeout)\r\n");
     xil_printf("AES: CTRL=0x%08X STATUS=0x%08X\r\n",
                (unsigned int)gpio_read(AES_GPIO_CTRL_BASE),
@@ -199,8 +217,8 @@ int aes_load_key(const u8 *key, const u8 *iv)
 int aes_verify_ready(void)
 {
     u32 status = gpio_read(AES_GPIO_STATUS_BASE);
-    xil_printf("AES: Status GPIO = 0x%08X (bit0=ready)\r\n",
-               (unsigned int)status);
+    AES_DBG("AES: Status GPIO = 0x%08X (bit0=ready)\r\n",
+            (unsigned int)status);
     return (status & 0x1) ? XST_SUCCESS : XST_FAILURE;
 }
 
@@ -218,7 +236,6 @@ int aes_verify_ready(void)
  *
  * Sequence:
  *   aes_start_packet()
- *     -> pulse icb_start_cnt to reset counter to J0
  *     -> raise ghash_pkt_val high (stays high while data streams)
  *   [DMA transfer happens]
  *   aes_end_packet()

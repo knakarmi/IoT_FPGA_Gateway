@@ -25,6 +25,7 @@
 #include "packet_parser.h"
 #include "functional_test.h"
 #include "timing.h"
+#include "performance_test.h"
 
 /* ---------------------------------------------------------------------------
  * NIST AES-256-GCM Test Vector (SP 800-38D)
@@ -202,8 +203,17 @@ int main(void)
     run_functional_tests();
     xil_printf("    OK - Functional tests complete\r\n");
 
+
+
     /* ------------------------------------------------------------------
-     * 5. Main processing loop
+     * 6. Week 11 perfoemance evaluation tests
+     * ------------------------------------------------------------------ */
+    xil_printf("\r\n[5] Running Week 11 performance evaluation...\r\n");
+    run_performance_tests(TEST_KEY, TEST_IV);
+    xil_printf("    OK - Functional tests complete\r\n");
+
+    /* ------------------------------------------------------------------
+     * 6. Main processing loop
      * ------------------------------------------------------------------ */
     xil_printf("\r\n[5] Entering main processing loop...\r\n");
     xil_printf("    Waiting for DMA transfers and parser IRQs\r\n");
